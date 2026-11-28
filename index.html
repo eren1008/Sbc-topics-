@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مساعد اشتراطات السلامة — الكود السعودي SBC 201 / 801 (الموضوع 01)</title>
+  <title>مساعد اشتراطات السلامة الشامل — الكود السعودي SBC 201 / 801 (41 ملف PDF)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -15,37 +15,43 @@
     <aside class="sidebar">
       <div class="brand">
         <h1>مساعد اشتراطات السلامة</h1>
-        <p>الكود السعودي SBC 201 / SBC 801<br />مرجع هندسي مفتوح المصدر (41 ملف PDF)</p>
+        <p>الكود السعودي SBC 201 / SBC 801<br />المرجع الشامل لـ 41 ملف PDF (10 مواضيع)</p>
       </div>
 
-      <div class="nav-section-title">الموضوع 01 — نموذج مكتمل (5 ملفات)</div>
+      <div class="nav-section-title">أدوات الفحص والدليل الشامل</div>
       <button class="nav-btn active" data-view="viewCalc">
         <span>🧮</span>
-        <span>فحص المخارج والأبعاد</span>
-        <span class="nav-badge">1004–1007</span>
+        <span>الحاسبة الهندسية الشاملة</span>
+        <span class="nav-badge">حي</span>
+      </button>
+      <button class="nav-btn" data-view="viewAllFiles">
+        <span>📚</span>
+        <span>فهرس الـ 41 ملف PDF</span>
+        <span class="nav-badge">41</span>
       </button>
       <button class="nav-btn" data-view="viewRef">
         <span>📊</span>
         <span>جداول الإشغالات</span>
-        <span class="nav-badge">16</span>
+        <span class="nav-badge">17</span>
       </button>
       <button class="nav-btn" data-view="viewExceptions">
         <span>📋</span>
         <span>سجل الاستثناءات</span>
         <span class="nav-badge">14</span>
       </button>
-
-      <div class="nav-section-title" style="margin-top: 12px;">خارطة المشروع الكاملة</div>
       <button class="nav-btn" data-view="viewRoadmap">
         <span>🗂️</span>
-        <span>خريطة الـ 41 ملفاً (10 مواضيع)</span>
-        <span class="nav-badge">1/10</span>
+        <span>بطاقات المواضيع الـ 10</span>
+        <span class="nav-badge">10/10</span>
       </button>
 
+      <div class="nav-section-title" style="margin-top: 8px;">المواضيع الهندسية العشرة (مكتملة)</div>
+      <div id="topicsNavList"></div>
+
       <div class="sidebar-footer">
-        <div><strong>المرجع:</strong> SBC 201 &amp; SBC 801 (Ch. 10)</div>
-        <div><strong>الملفات المدمجة:</strong> 5 ملفات PDF</div>
-        <div>يعمل بدون إنترنت 100% • جاهز لـ GitHub Pages</div>
+        <div><strong>المرجع:</strong> SBC 201 &amp; SBC 801</div>
+        <div><strong>الحالة:</strong> 41 / 41 ملف مكتمل (10 مواضيع)</div>
+        <div>يعمل بدون إنترنت 100% • GitHub Pages</div>
       </div>
     </aside>
 
@@ -53,8 +59,8 @@
     <div class="main-content">
       <header class="topbar">
         <div class="topbar-title">
-          <h2>فحص حمل الإشغال، عدد وعرض وتباعد المخارج (SBC 1004 – 1007)</h2>
-          <p>يدمج 5 ملفات: مكونات مسار الهروب • حساب الإشغال • عرض المخارج • عدد المخارج • تباعد المخارج</p>
+          <h2>الموسوعة التفاعلية لاشتراطات السلامة والحماية من الحريق (SBC 201 &amp; 801)</h2>
+          <p>تجميع وتحليل كامل لـ 41 ملف PDF ضمن 10 مواضيع هندسية متكاملة شاملة الإشغالات والمعادلات والاستثناءات</p>
         </div>
         <div class="topbar-actions">
           <button class="btn btn-preset" id="btnPreset">✨ تحميل مثال جاهز</button>
@@ -64,12 +70,12 @@
       </header>
 
       <main class="page-body">
-        <!-- VIEW 1: Interactive Calculator -->
+        <!-- VIEW 1: Interactive Multi-Topic Calculator -->
         <section id="viewCalc" class="view-panel active">
           <div class="card" id="calcForm">
             <div class="card-header">
-              <h3>(1) مدخلات الفحص الهندسي (تتكيف تلقائياً مع الإشغال المختار)</h3>
-              <span class="code-pill">SBC 201/801 — Sec. 1001–1007</span>
+              <h3>(1) مدخلات الفحص الهندسي الشامل (تغطي المواضيع من 01 إلى 10)</h3>
+              <span class="code-pill">SBC 201/801 — Ch. 4, 5, 9, 10, 30</span>
             </div>
 
             <div class="info-banner" id="occBanner"></div>
@@ -78,67 +84,25 @@
               <div class="input-box">
                 <label for="in_occ">الإشغال الرئيسي / وظيفة الفراغ</label>
                 <select id="in_occ"></select>
-                <div class="input-hint">يحدد معامل الإشغال (Table 1004.5) وحد المخرج الواحد تلقائياً</div>
+                <div class="input-hint">يحدد معامل الإشغال والمسار المشترك ومسافة الانتقال القصوى</div>
               </div>
 
               <div class="input-box">
                 <label for="in_area">مساحة الفراغ أو الدور (م²)</label>
-                <input type="number" id="in_area" min="0" step="1" value="420" />
+                <input type="number" id="in_area" min="0" step="1" value="850" />
                 <div class="input-hint">صافي أو إجمالي وفق جدول 1004.5</div>
               </div>
 
               <div class="input-box">
-                <label for="in_level">مستوى الفراغ / الطابق</label>
-                <select id="in_level">
-                  <option value="ground">دور أرضي (مستوى التفريغ للخارج)</option>
-                  <option value="upper">دور متكرر فوق الأرضي</option>
-                  <option value="basement">قبو / بدروم (تحت الأرض)</option>
-                  <option value="roof">سطح خارجي مأهول (Occupied Roof)</option>
-                </select>
-                <div class="input-hint">يُعامل السطح المأهول كطابق كامل (Sec. 1006.3)</div>
-              </div>
-
-              <div class="input-box">
-                <label for="in_fixedSeats">عدد المقاعد الثابتة (0 إن لم يوجد)</label>
-                <input type="number" id="in_fixedSeats" min="0" step="1" value="0" />
-                <div class="input-hint">Sec. 1004.6 للمسارح والقاعات والمدرجات</div>
-              </div>
-
-              <div class="input-box">
-                <label for="in_wheelchairs">أماكن الكراسي المتحركة (يُضرب × 2)</label>
-                <input type="number" id="in_wheelchairs" min="0" step="1" value="2" />
-                <div class="input-hint">شخص للكرسي + شخص للمرافق (SBC 1004.6 &amp; 1109.2.3)</div>
-              </div>
-
-              <div class="input-box">
-                <label for="in_benchLen">طول مقاعد البنش بدون مساند (م)</label>
-                <input type="number" id="in_benchLen" min="0" step="0.5" value="0" />
-                <div class="input-hint">يُقسم على 0.45م (ولكنب المطاعم 0.60م) — Sec. 1004.6</div>
-              </div>
-
-              <div class="input-box">
-                <label for="in_extraOL">حمل متداخل أو ميزانين (شخص)</label>
-                <input type="number" id="in_extraOL" min="0" step="1" value="35" />
-                <div class="input-hint">إشغال الميزانين والفراغات المتداخلة (1004.2.1 &amp; 1004.2.2)</div>
+                <label for="in_extraOL">حمل إضافي (مقاعد ثابتة / ميزانين)</label>
+                <input type="number" id="in_extraOL" min="0" step="1" value="30" />
+                <div class="input-hint">يُجمع مع حمل المساحة (1004.2 / 1004.6)</div>
               </div>
 
               <div class="input-box">
                 <label for="in_convOL">حمل التقاء الأدوار بالسلم (إن وجد)</label>
                 <input type="number" id="in_convOL" min="0" step="1" value="0" />
-                <div class="input-hint">أعلى دور فوق + أعلى دور تحت نقطة التفريغ (Sec. 1005.6)</div>
-              </div>
-
-              <div class="input-box">
-                <label for="in_specialUse">غرفة / حالة استخدام خاص (Sec. 1006.2.2)</label>
-                <select id="in_specialUse">
-                  <option value="none">لا يوجد (فراغ قياسي)</option>
-                  <option value="boiler">غرفة غلايات / أفران (&gt;45 م² و &gt;422,000 kJ)</option>
-                  <option value="refrig_mach">غرفة ماكينات تبريد (&gt;100 م²)</option>
-                  <option value="cold_room">غرفة مبردة (&gt;100 م² وأقل من 20°م)</option>
-                  <option value="elec">غرفة كهرباء (NFPA 70 Sec. 110.26 / 110.33)</option>
-                  <option value="veh_ramp">منحدر سيارات (Vehicular Ramp)</option>
-                </select>
-                <div class="input-hint">تفرض مخرجين وشروطاً خاصة بغض النظر عن عدد الأشخاص</div>
+                <div class="input-hint">أعلى دور فوق + أعلى دور تحت نقطة التفريغ (1005.6)</div>
               </div>
 
               <div class="input-box">
@@ -148,7 +112,7 @@
                   <option value="nfpa13r">نعم — نظام رش سكني (NFPA 13R / 903.3.1.2)</option>
                   <option value="none">لا يوجد نظام رش آلي</option>
                 </select>
-                <div class="input-hint">يخفض التباعد من D/2 إلى D/3 ويرفع المسار المشترك لبعض الإشغالات</div>
+                <div class="input-hint">يؤثر في العرض والتباعد ومسافة الانتقال والارتفاع وStandpipe</div>
               </div>
 
               <div class="input-box">
@@ -157,61 +121,95 @@
                   <option value="yes">نعم — مطابق لـ Sec. 907.5.2.2</option>
                   <option value="no">لا يوجد</option>
                 </select>
-                <div class="input-hint">مع الرش الشامل يخفض معامل العرض (5.1 سلم / 3.8 باب) عدا H و I-2</div>
+                <div class="input-hint">مع الرش الشامل يخفض معامل العرض (5.08 سلم / 3.81 باب)</div>
               </div>
 
               <div class="input-box">
                 <label for="in_commonPath">طول المسار المشترك الفعلي (م)</label>
-                <input type="number" id="in_commonPath" min="0" step="0.5" value="18" />
-                <div class="input-hint">تجاوز 23م (أو 30م/38م) يفرض مخرجين (Table 1006.2.1)</div>
+                <input type="number" id="in_commonPath" min="0" step="0.5" value="24" />
+                <div class="input-hint">الموضوع 01: تجاوز الحد يفرض مخرجين (Table 1006.2.1)</div>
+              </div>
+
+              <div class="input-box">
+                <label for="in_travelDist">مسافة الانتقال لأقرب مخرج (م)</label>
+                <input type="number" id="in_travelDist" min="0" step="1" value="68" />
+                <div class="input-hint">الموضوع 02: تُقارن بجدول 1017.2 (60 / 75 / 90 / 120م)</div>
+              </div>
+
+              <div class="input-box">
+                <label for="in_deadEnd">طول النهاية المسدودة بالممر (م)</label>
+                <input type="number" id="in_deadEnd" min="0" step="0.5" value="11" />
+                <div class="input-hint">الموضوع 02: الحد 6م بدون رش و15م مع الرش الشامل (1020.5)</div>
               </div>
 
               <div class="input-box">
                 <label for="in_diagonal">أقصى قطر مائل للفراغ / الدور (م)</label>
-                <input type="number" id="in_diagonal" min="1" step="0.5" value="36" />
-                <div class="input-hint">لحساب مسافة التباعد الدنيا بين المخرجين (Sec. 1007.1.1)</div>
+                <input type="number" id="in_diagonal" min="1" step="0.5" value="46" />
+                <div class="input-hint">لحساب التباعد الأدنى بين المخارج (D/2 أو D/3)</div>
               </div>
 
               <div class="input-box">
-                <label for="in_actualSep">المسافة الفعلية المتوفرة بين المخرجين (م)</label>
-                <input type="number" id="in_actualSep" min="0" step="0.5" value="14" />
-                <div class="input-hint">تقاس بخط مستقيم (أو عبر الممر المعزول 1 ساعة)</div>
+                <label for="in_actualSep">المسافة الفعلية بين المخرجين (م)</label>
+                <input type="number" id="in_actualSep" min="0" step="0.5" value="17" />
+                <div class="input-hint">تقاس بخط مستقيم أو عبر الممر المعزول 1 ساعة</div>
+              </div>
+
+              <div class="input-box">
+                <label for="in_stories">عدد الطوابق فوق منسوب الأرض</label>
+                <input type="number" id="in_stories" min="1" step="1" value="8" />
+                <div class="input-hint">الموضوع 03 و 08: يحدد عزل السلم (4 أدوار) والمصاعد</div>
+              </div>
+
+              <div class="input-box">
+                <label for="in_heightM">ارتفاع أعلى دور مشغول (م)</label>
+                <input type="number" id="in_heightM" min="0" step="0.5" value="28" />
+                <div class="input-hint">الموضوع 08 و 09 و 10: (>9م Standpipe | >23م High-Rise | >36م FSAE)</div>
+              </div>
+
+              <div class="input-box">
+                <label for="in_mezzArea">مساحة الميزانين (م² — 0 إن لم يوجد)</label>
+                <input type="number" id="in_mezzArea" min="0" step="1" value="0" />
+                <div class="input-hint">الموضوع 07: الحد 1/3 المساحة المفتوحة (أو 1/2 مرشوش)</div>
+              </div>
+
+              <div class="input-box">
+                <label for="in_horizDoorW">عرض باب المخرج الأفقي (مم — 0 إن لم يوجد)</label>
+                <input type="number" id="in_horizDoorW" min="0" step="50" value="0" />
+                <div class="input-hint">الموضوع 05: لحساب مساحة منطقة اللجوء Refuge Area (1026.4)</div>
               </div>
 
               <div class="input-box">
                 <label for="in_provExits">عدد المخارج المتوفرة بالتصميم</label>
                 <input type="number" id="in_provExits" min="1" step="1" value="2" />
-                <div class="input-hint">للمقارنة التلقائية مع العدد المطلوب وقاعدة الـ 50%</div>
+                <div class="input-hint">للمقارنة التلقائية مع العدد المطلوب</div>
               </div>
 
               <div class="input-box">
                 <label for="in_provStairW">العرض الصافي المتوفر لكل سلم (مم)</label>
                 <input type="number" id="in_provStairW" min="500" step="10" value="1200" />
-                <div class="input-hint">الحد الأدنى 1120 مم (أو 915 مم إذا الإشغال &lt; 50)</div>
+                <div class="input-hint">الحد الأدنى 1100 مم (أو 900 مم إذا الإشغال &lt; 50)</div>
               </div>
 
               <div class="input-box">
                 <label for="in_provDoorW">العرض الصافي المتوفر لكل باب (مم)</label>
                 <input type="number" id="in_provDoorW" min="500" step="10" value="1000" />
-                <div class="input-hint">الحد الأدنى 815 مم صافي والحد الأقصى للضلفة 1220 مم</div>
+                <div class="input-hint">الحد الأدنى 800 مم صافي (1000 مم في I-2) والأقصى 1200 مم</div>
               </div>
             </div>
           </div>
 
-          <!-- Exceptions Interactive Box -->
           <div class="card">
             <div class="exceptions-header">
               <span>●</span>
-              <span>استثناءات وحالات الكود المرتبطة بالموضوع 01 (حدد ما ينطبق على مشروعك لتحديث النتيجة فوراً)</span>
+              <span>استثناءات وحالات الكود المرتبطة (حدد ما ينطبق على مشروعك لتحديث النتيجة فوراً)</span>
             </div>
             <div class="ex-list" id="interactiveExceptions"></div>
           </div>
 
-          <!-- Results Dashboard -->
           <div class="card">
             <div class="card-header">
-              <h3>(2) النتائج الهندسية التلقائية والتحقق من المطابقة</h3>
-              <span class="code-pill">تحديث فوري</span>
+              <h3>(2) النتائج الهندسية الشاملة لجميع المواضيع (تحديث فوري)</h3>
+              <span class="code-pill">تغطية 10 مواضيع</span>
             </div>
 
             <div class="kpi-grid">
@@ -221,25 +219,25 @@
                 <div class="kpi-sub" id="kpi_ol_sub">—</div>
               </div>
 
-              <div class="kpi-card" id="card_exits">
-                <div class="kpi-label">عدد المخارج المطلوبة (Sec. 1006)</div>
+              <div class="kpi-card" id="card_t1">
+                <div class="kpi-label">الموضوع 01: المخارج والعروض</div>
                 <div class="kpi-val" id="kpi_exits_val">—</div>
                 <div class="kpi-sub" id="kpi_exits_sub">—</div>
-                <span class="status-pill" id="kpi_exits_badge">—</span>
+                <span class="status-pill" id="kpi_t1_badge">—</span>
               </div>
 
-              <div class="kpi-card" id="card_width">
-                <div class="kpi-label">أدنى عرض: سلم / باب (Sec. 1005)</div>
-                <div class="kpi-val" id="kpi_width_val">—</div>
-                <div class="kpi-sub" id="kpi_width_sub">—</div>
-                <span class="status-pill" id="kpi_width_badge">—</span>
+              <div class="kpi-card" id="card_t2">
+                <div class="kpi-label">الموضوع 02: مسافة الانتقال (Sec. 1017)</div>
+                <div class="kpi-val" id="kpi_td_val">—</div>
+                <div class="kpi-sub" id="kpi_td_sub">—</div>
+                <span class="status-pill" id="kpi_t2_badge">—</span>
               </div>
 
-              <div class="kpi-card" id="card_sep">
-                <div class="kpi-label">تباعد المخارج الدنيا (Sec. 1007)</div>
-                <div class="kpi-val" id="kpi_sep_val">—</div>
-                <div class="kpi-sub" id="kpi_sep_sub">—</div>
-                <span class="status-pill" id="kpi_sep_badge">—</span>
+              <div class="kpi-card" id="card_t9">
+                <div class="kpi-label">المواضيع 03/09/10: الارتفاع والعزل</div>
+                <div class="kpi-val" id="kpi_hr_val">—</div>
+                <div class="kpi-sub" id="kpi_hr_sub">—</div>
+                <span class="status-pill" id="kpi_t9_badge">—</span>
               </div>
             </div>
 
@@ -247,9 +245,9 @@
               <table>
                 <thead>
                   <tr>
-                    <th>بند الفحص</th>
-                    <th>النتيجة والمقارنة</th>
-                    <th>المعادلة / الأساس الهندسي</th>
+                    <th>الموضوع / بند الفحص</th>
+                    <th>النتيجة والمقارنة الهندسية</th>
+                    <th>المعادلة / الأساس</th>
                     <th>المرجع بالكود</th>
                     <th>الحالة</th>
                   </tr>
@@ -262,12 +260,66 @@
           </div>
         </section>
 
-        <!-- VIEW 2: Occupancy Tables -->
+        <!-- VIEW 2: Topic Detail (Dynamic for all 10 Topics) -->
+        <section id="viewTopicDetail" class="view-panel">
+          <div class="card">
+            <div class="card-header">
+              <h3 id="topicDetailTitle">تفاصيل الموضوع</h3>
+              <span class="code-pill" id="topicDetailCode">—</span>
+            </div>
+            <div class="scope-banner" id="topicDetailScope"></div>
+            <h4 style="font-size:0.9rem;color:#334155;margin-bottom:8px;">📂 ملفات الـ PDF المدمجة في هذا الموضوع:</h4>
+            <div class="pdf-chips" id="topicPdfChips"></div>
+          </div>
+          <div id="topicRulesList"></div>
+        </section>
+
+        <!-- VIEW 3: All 41 PDFs Master Index -->
+        <section id="viewAllFiles" class="view-panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>الدليل الشامل لجميع الـ 41 ملف PDF (اضغط على اسم الموضوع لعرض شروحاته)</h3>
+              <span class="code-pill">41 / 41 PDFs</span>
+            </div>
+            <div class="filter-bar">
+              <input type="text" id="allFilesSearch" placeholder="ابحث باسم الملف أو رقم الفقرة أو الموضوع..." />
+              <select id="allFilesTopicFilter">
+                <option value="all">جميع المواضيع العشرة (41 ملف)</option>
+                <option value="01">الموضوع 01: الأسس وحمل الإشغال وعدد وعرض وتباعد المخارج</option>
+<option value="02">الموضوع 02: مسار الوصول للمخرج ومسافات الانتقال والممرات والشرفات</option>
+<option value="03">الموضوع 03: السلالم والمنحدرات وفروق المناسيب والارتفاعات الصافية</option>
+<option value="04">الموضوع 04: الأبواب والبوابات والدرابزين والحواجز الواقية من السقوط</option>
+<option value="05">الموضوع 05: ممرات الخروج المحمية والمخارج الأفقية وكباري المشاة وفتحات الإنقاذ</option>
+<option value="06">الموضوع 06: إضاءة وسائل الخروج ولوحات الخروج والعلامات المضيئة وعنونة المباني</option>
+<option value="07">الموضوع 07: إتاحة ذوي الإعاقة والميزانين والأسطح الخارجية المأهولة</option>
+<option value="08">الموضوع 08: المصاعد، ردهاتها (Lobbies)، مصاعد الإطفاء والإخلاء، والسلالم المتحركة</option>
+<option value="09">الموضوع 09: الارتفاعات وعدد الأدوار والمساحات المسموحة للمباني والمباني العالية</option>
+<option value="10">الموضوع 10: أنظمة الأعمدة الصاعدة للإطفاء (Standpipe Systems Class I / II / III)</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>م</th>
+                    <th>الموضوع المجمع</th>
+                    <th>اسم ملف الـ PDF</th>
+                    <th>الفقرة بالكود</th>
+                    <th>ملخص محتوى الملف ومتى يُستخدم</th>
+                  </tr>
+                </thead>
+                <tbody id="allFilesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: Occupancy Tables -->
         <section id="viewRef" class="view-panel">
           <div class="card">
             <div class="card-header">
-              <h3>جدول معايير الإشغالات المدمج (SBC Table 1004.5 &amp; Table 1006.2.1 &amp; Sec. 1005.3)</h3>
-              <span class="code-pill">16 فئة إشغال</span>
+              <h3>جدول معايير الإشغالات الموحد (Table 1004.5 + Table 1006.2.1 + Table 1017.2)</h3>
+              <span class="code-pill">17 فئة إشغال</span>
             </div>
             <div class="table-wrap">
               <table>
@@ -279,6 +331,7 @@
                     <th>معامل الإشغال (م²/شخص)</th>
                     <th>حد المخرج الواحد</th>
                     <th>المسار المشترك (NS/S)</th>
+                    <th>مسافة الانتقال (NS/S)</th>
                     <th>تخفيض العرض</th>
                     <th>ملاحظات الكود</th>
                   </tr>
@@ -289,21 +342,28 @@
           </div>
         </section>
 
-        <!-- VIEW 3: Exceptions Catalog -->
+        <!-- VIEW 5: Exceptions Catalog -->
         <section id="viewExceptions" class="view-panel">
           <div class="card">
             <div class="card-header">
-              <h3>سجل الاستثناءات والاشتراطات الخاصة للموضوع 01 (جميع ملفات الـ 5 PDF)</h3>
-              <span class="code-pill">14 بنداً موثقاً</span>
+              <h3>سجل أهم الاستثناءات والاشتراطات الخاصة عبر المواضيع العشرة</h3>
+              <span class="code-pill">14 قاعدة محورية</span>
             </div>
             <div class="filter-bar">
-              <input type="text" id="exSearch" placeholder="ابحث بكلمة أو رقم فقرة (مثل: 1007 أو تبريد أو ميزانين)..." />
+              <input type="text" id="exSearch" placeholder="ابحث بكلمة أو رقم فقرة (مثل: 1017 أو مصعد أو ميزانين)..." />
               <select id="exFileFilter">
-                <option value="all">جميع الملفات الخمسة</option>
+                <option value="all">جميع الملفات</option>
                 <option value="OCCUPANT LOAD CALCULATION.pdf">OCCUPANT LOAD CALCULATION.pdf</option>
                 <option value="Means of Egress Width.pdf">Means of Egress Width.pdf</option>
                 <option value="Number Of Exits.pdf">Number Of Exits.pdf</option>
                 <option value="EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf">EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf</option>
+                <option value="Section_1017_Exit_Access_Travel_Distance.pdf">Section_1017_Exit_Access_Travel_Distance.pdf</option>
+                <option value="Section_1020_Corridors.pdf">Section_1020_Corridors.pdf</option>
+                <option value="Section_1019_Exit_Access_Stairways_and_Ramps.pdf">Section_1019_Exit_Access_Stairways_and_Ramps.pdf</option>
+                <option value="Section 1026 Horizontal Exits.pdf">Section 1026 Horizontal Exits.pdf</option>
+                <option value="MEZZANINE.pdf">MEZZANINE.pdf</option>
+                <option value="ELEVATOR LOBBIES AND HOISTWAY OPENING PROTECTION.pdf">ELEVATOR LOBBIES AND HOISTWAY OPENING PROTECTION.pdf</option>
+                <option value="When Standpipe is required.pdf">When Standpipe is required.pdf</option>
               </select>
             </div>
             <div class="table-wrap">
@@ -323,15 +383,15 @@
           </div>
         </section>
 
-        <!-- VIEW 4: Master Roadmap -->
+        <!-- VIEW 6: Master Roadmap Cards -->
         <section id="viewRoadmap" class="view-panel">
           <div class="card">
             <div class="card-header">
-              <h3>خريطة تقسيم الـ 41 ملف PDF إلى 10 مواضيع هندسية متكاملة</h3>
-              <span class="code-pill">41 PDF → 10 Modules</span>
+              <h3>بطاقات المواضيع العشرة المكتملة (اضغط على أي موضوع لفتح شروحاته الكاملة)</h3>
+              <span class="code-pill">41 PDF → 10 Modules (100%)</span>
             </div>
             <div class="info-banner">
-              <strong>هيكلة المشروع المفتوح المصدر:</strong> تم تقسيم الملفات الـ 41 إلى 10 وحدات برمجية متجانسة؛ تم بناء وتفعيل <strong>الموضوع 01 بالكامل (5 ملفات)</strong> كنموذج جاهز، ويمكن إضافة المواضيع من 02 إلى 10 بنفس الهيكل داخل ملف <code>assets/data.js</code>.
+              <strong>تم اكتمال جميع المواضيع العشرة (41 ملف PDF):</strong> كل بطاقة أدناه تدمج الملفات المتشابهة وتعرض الإشغالات المطبقة، متى يُستخدم البند، الاشتراطات التفصيلية، المعادلات، والاستثناءات.
             </div>
             <div class="topics-grid" id="topicsGrid"></div>
           </div>
