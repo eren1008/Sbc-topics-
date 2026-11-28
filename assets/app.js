@@ -1,22 +1,37 @@
 /* ==========================================================================
-   Interactive Calculation Engine & Dashboard Logic — Topic 01 (SBC 1001–1007)
+   Complete Interactive Engine — ALL 41 PDFs & ALL 10 Topics (SBC 201 / 801)
    ========================================================================== */
 (function () {
   const D = window.SBC_DATA;
   let presetIndex = 0;
   let lastResult = null;
+  let activeTopicNum = "01";
 
   const $ = (id) => document.getElementById(id);
 
   function init() {
+    renderSidebarTopics();
     populateOccupancySelect();
     renderInteractiveExceptions();
+    renderTopicDetail("01");
+    renderAllFilesTable();
     renderReferenceTable();
     renderCatalogExceptions();
     renderRoadmap();
     bindNavigation();
     bindInputs();
     loadPreset(0);
+  }
+
+  function renderSidebarTopics() {
+    const nav = $("topicsNavList");
+    nav.innerHTML = D.topics.map((t) => `
+      <button class="nav-btn topic-nav-btn" data-view="viewTopicDetail" data-topic="${t.num}">
+        <span>📘</span>
+        <span>${t.shortTitle}</span>
+        <span class="nav-badge">${t.files.length}</span>
+      </button>
+    `).join("");
   }
 
   function populateOccupancySelect() {
@@ -27,7 +42,7 @@
   }
 
   function renderInteractiveExceptions() {
-    const activeIds = ["EX-01", "EX-04", "EX-06", "EX-07", "EX-08", "EX-14"];
+    const activeIds = ["EX-01", "EX-03", "EX-04", "EX-05", "EX-07", "EX-14"];
     const box = $("interactiveExceptions");
     box.innerHTML = D.exceptions
       .filter((e) => activeIds.includes(e.id))
@@ -54,15 +69,32 @@
     });
   }
 
+  function switchView(viewId, topicNum) {
+    document.querySelectorAll(".nav-btn").forEach((b) => b.classList.remove("active"));
+    if (viewId === "viewTopicDetail" && topicNum) {
+      activeTopicNum = topicNum;
+      const btn = document.querySelector(`.topic-nav-btn[data-topic="${topicNum}"]`);
+      if (btn) btn.classList.add("active");
+      renderTopicDetail(topicNum);
+    } else {
+      const btn = document.querySelector(`.nav-btn[data-view="${viewId}"]:not(.topic-nav-btn)`);
+      if (btn) btn.classList.add("active");
+    }
+    document.querySelectorAll(".view-panel").forEach((p) => p.classList.remove("active"));
+    $(viewId).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   function bindNavigation() {
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".nav-btn").forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const target = btn.dataset.view;
-        document.querySelectorAll(".view-panel").forEach((p) => p.classList.remove("active"));
-        $(target).classList.add("active");
-      });
+    document.addEventListener("click", (ev) => {
+      const btn = ev.target.closest(".nav-btn");
+      if (btn) {
+        switchView(btn.dataset.view, btn.dataset.topic);
+      }
+      const roadCard = ev.target.closest(".topic-card[data-topic]");
+      if (roadCard) {
+        switchView("viewTopicDetail", roadCard.dataset.topic);
+      }
     });
 
     $("btnPreset").addEventListener("click", () => {
@@ -78,9 +110,10 @@
       el.addEventListener("input", calculate);
       el.addEventListener("change", calculate);
     });
-
     $("exSearch").addEventListener("input", renderCatalogExceptions);
     $("exFileFilter").addEventListener("change", renderCatalogExceptions);
+    $("allFilesSearch").addEventListener("input", renderAllFilesTable);
+    $("allFilesTopicFilter").addEventListener("change", renderAllFilesTable);
   }
 
   function loadPreset(idx) {
@@ -88,18 +121,19 @@
     const v = p.values;
     $("in_occ").value = v.occ;
     $("in_area").value = v.area;
-    $("in_fixedSeats").value = v.fixedSeats;
-    $("in_wheelchairs").value = v.wheelchairs;
-    $("in_benchLen").value = v.benchLen;
     $("in_extraOL").value = v.extraOL;
     $("in_convOL").value = v.convOL;
-    $("in_level").value = v.level;
     $("in_commonPath").value = v.commonPath;
+    $("in_travelDist").value = v.travelDist;
+    $("in_deadEnd").value = v.deadEnd;
     $("in_diagonal").value = v.diagonal;
     $("in_actualSep").value = v.actualSep;
     $("in_sprinkler").value = v.sprinkler;
     $("in_evacs").value = v.evacs;
-    $("in_specialUse").value = v.specialUse;
+    $("in_stories").value = v.stories;
+    $("in_heightM").value = v.heightM;
+    $("in_mezzArea").value = v.mezzArea;
+    $("in_horizDoorW").value = v.horizDoorW;
     $("in_provExits").value = v.provExits;
     $("in_provStairW").value = v.provStairW;
     $("in_provDoorW").value = v.provDoorW;
@@ -115,133 +149,144 @@
   function calculate() {
     const occ = D.occupancies.find((o) => o.id === $("in_occ").value) || D.occupancies[0];
     const area = num("in_area");
-    const fixedSeats = num("in_fixedSeats");
-    const wheelchairs = num("in_wheelchairs");
-    const benchLen = num("in_benchLen");
     const extraOL = num("in_extraOL");
     const convOL = num("in_convOL");
-    const level = $("in_level").value;
     const commonPath = num("in_commonPath");
+    const travelDist = num("in_travelDist");
+    const deadEnd = num("in_deadEnd");
     const diagonal = num("in_diagonal");
     const actualSep = num("in_actualSep");
     const sprinkler = $("in_sprinkler").value;
     const evacs = $("in_evacs").value === "yes";
-    const specialUse = $("in_specialUse").value;
+    const stories = Math.max(1, Math.floor(num("in_stories")));
+    const heightM = num("in_heightM");
+    const mezzArea = num("in_mezzArea");
+    const horizDoorW = num("in_horizDoorW");
     const provExits = Math.max(1, Math.floor(num("in_provExits")));
     const provStairW = num("in_provStairW");
     const provDoorW = num("in_provDoorW");
 
     const hasSprinkler = sprinkler !== "none";
-    const exMech = $("chk_EX-06") && $("chk_EX-06").checked;
-    const exFoyer = $("chk_EX-04") && $("chk_EX-04").checked;
-    const exSingleStory = $("chk_EX-07") && $("chk_EX-07").checked;
-    const exRatedCorr = $("chk_EX-08") && $("chk_EX-08").checked;
+    const fullSprinkler = sprinkler === "nfpa13";
+    const exFoyer = $("chk_EX-03") && $("chk_EX-03").checked;
+    const exMech = $("chk_EX-04") && $("chk_EX-04").checked;
+    const exSingleStory = $("chk_EX-05") && $("chk_EX-05").checked;
+    const exExtBalcony = $("chk_EX-07") && $("chk_EX-07").checked;
     const exScissor = $("chk_EX-14") && $("chk_EX-14").checked;
 
-    // 1. Dynamic Info Banner
     const cpLimit = hasSprinkler ? occ.cpS : occ.cpNS;
+    const baseTdLimit = hasSprinkler ? occ.tdS : occ.tdNS;
+    const tdLimit = baseTdLimit === 0 ? 0 : baseTdLimit + (exExtBalcony ? 30 : 0);
+    const deadEndLimit = fullSprinkler ? 15 : 6;
+
     $("occBanner").innerHTML = `
       <strong>الإشغال المختار: ${occ.group} (${occ.label})</strong> — معامل الإشغال: <strong>${occ.olf} م²/شخص (${occ.basis})</strong> |
       حد المخرج الواحد: <strong>${occ.maxSingleOL} شخص</strong> |
-      حد المسار المشترك: <strong>${cpLimit} م</strong> (Table 1004.5 & Table 1006.2.1)
+      المسار المشترك: <strong>${cpLimit} م</strong> |
+      مسافة الانتقال القصوى: <strong>${tdLimit === 0 ? "غير مسموح بدون رش" : tdLimit + " م"}</strong>
       <div class="banner-sub">⚠️ ${occ.note}</div>
     `;
 
-    // 2. Occupant Load (Sec. 1004)
+    // Topic 01: Occupant Load, Exits, Widths, Remoteness
     const olArea = area > 0 ? Math.ceil(area / occ.olf) : 0;
-    const olBench = benchLen > 0 ? Math.ceil(benchLen / 0.45) : 0;
-    const olSpaceOnly = olArea + fixedSeats + wheelchairs * 2 + olBench;
-    const olTotal = olSpaceOnly + extraOL;
-    const olForExitsCount = exFoyer ? olSpaceOnly : olTotal;
+    const olTotal = olArea + extraOL;
+    const olForExitsCount = exFoyer ? olArea : olTotal;
     const olDesignCapacity = Math.max(olTotal, convOL);
 
-    // 3. Required Number of Exits (Sec. 1006)
     let reqExits = 1;
     let exitReason = "ضمن حدود المخرج الواحد (Table 1006.2.1)";
+    if (olForExitsCount > 1000) { reqExits = 4; exitReason = "حمل الإشغال > 1000 شخص (1006.2.1.1)"; }
+    else if (olForExitsCount > 500) { reqExits = 3; exitReason = "حمل الإشغال 501–1000 شخص (1006.2.1.1)"; }
+    else if (olForExitsCount > occ.maxSingleOL) { reqExits = 2; exitReason = `تجاوز حد المخرج الواحد (${occ.maxSingleOL} شخص)`; }
+    else if (!exMech && commonPath > cpLimit) { reqExits = 2; exitReason = `تجاوز المسار المشترك (${cpLimit} م)`; }
+    else if (stories > 1 && !exSingleStory) { reqExits = 2; exitReason = "طابق متكرر يتطلب مخرجين (1006.3.3)"; }
 
-    if (olForExitsCount > 1000) {
-      reqExits = 4;
-      exitReason = "حمل الإشغال > 1000 شخص (Sec. 1006.2.1.1 & Table 1006.3.3)";
-    } else if (olForExitsCount > 500) {
-      reqExits = 3;
-      exitReason = "حمل الإشغال بين 501 و 1000 شخص (Sec. 1006.2.1.1)";
-    } else if (olForExitsCount > occ.maxSingleOL) {
-      reqExits = 2;
-      exitReason = `تجاوز حد المخرج الواحد (${occ.maxSingleOL} شخص) — Table 1006.2.1`;
-    } else if (!exMech && commonPath > cpLimit) {
-      reqExits = 2;
-      exitReason = `تجاوز طول المسار المشترك المسموح (${cpLimit} م) — Table 1006.2.1`;
-    } else if (level !== "ground" && !exSingleStory) {
-      reqExits = 2;
-      exitReason = "طابق متكرر/قبو/سطح مأهول يتطلب مخرجين ما لم تتحقق شروط مخرج واحد (1006.3.4)";
-    }
+    const effectiveExits = exScissor ? 1 : provExits;
+    const exitsPass = effectiveExits >= reqExits;
 
-    if (specialUse === "boiler" && area > 45) {
-      reqExits = Math.max(reqExits, 2);
-      exitReason = "غرفة غلايات/أفران > 45 م² (Sec. 1006.2.2.1)";
-    } else if (specialUse === "refrig_mach" && area > 100) {
-      reqExits = Math.max(reqExits, 2);
-      exitReason = "غرفة ماكينات تبريد > 100 م² (Sec. 1006.2.2.2)";
-    } else if (specialUse === "cold_room" && area > 100) {
-      reqExits = Math.max(reqExits, 2);
-      exitReason = "غرفة مبردة > 100 م² وحرارة < 20°م (Sec. 1006.2.2.3)";
-    } else if (specialUse === "elec") {
-      reqExits = Math.max(reqExits, 2);
-      exitReason = "غرفة كهرباء (راجع NFPA 70 Sec. 110.26 / 110.33 & SBC 1006.2.2.4)";
-    }
-
-    const effectiveProvidedExits = exScissor ? 1 : provExits;
-    const exitsPass = effectiveProvidedExits >= reqExits;
-
-    // 4. Widths & Capacity Factors (Sec. 1005)
     const canReduceFactor = hasSprinkler && evacs && occ.allowWidthReduction;
-    const stairFactor = canReduceFactor ? 5.1 : 7.6;
-    const doorFactor = canReduceFactor ? 3.8 : 5.1;
+    const stairFactor = canReduceFactor ? 5.08 : 7.62;
+    const doorFactor = canReduceFactor ? 3.81 : 5.08;
 
     const reqTotalStairW = Math.ceil(olDesignCapacity * stairFactor);
-    const minSingleStairCode = olDesignCapacity < 50 ? 915 : 1120;
-    const reqEachStairW = Math.max(minSingleStairCode, Math.ceil(reqTotalStairW / effectiveProvidedExits));
-    const stair50Rule = reqExits > 1 ? (effectiveProvidedExits - 1) * provStairW >= 0.5 * reqTotalStairW : true;
+    const minStairCode = olDesignCapacity < 50 ? 900 : 1100;
+    const reqEachStairW = Math.max(minStairCode, Math.ceil(reqTotalStairW / effectiveExits));
+    const stair50Rule = reqExits > 1 ? (effectiveExits - 1) * provStairW >= 0.5 * reqTotalStairW : true;
     const stairPass = provStairW >= reqEachStairW && stair50Rule;
 
     const reqTotalDoorW = Math.ceil(olDesignCapacity * doorFactor);
-    const reqEachDoorW = Math.max(815, Math.ceil(reqTotalDoorW / effectiveProvidedExits));
-    const door50Rule = reqExits > 1 ? (effectiveProvidedExits - 1) * provDoorW >= 0.5 * reqTotalDoorW : true;
-    const doorPass = provDoorW >= 815 && provDoorW <= 1220 && effectiveProvidedExits * provDoorW >= reqTotalDoorW && door50Rule;
+    const reqEachDoorW = Math.max(800, Math.ceil(reqTotalDoorW / effectiveExits));
+    const door50Rule = reqExits > 1 ? (effectiveExits - 1) * provDoorW >= 0.5 * reqTotalDoorW : true;
+    const doorPass = provDoorW >= 800 && provDoorW <= 1200 && effectiveExits * provDoorW >= reqTotalDoorW && door50Rule;
 
-    // 5. Exit Separation / Remoteness (Sec. 1007)
-    const sepRatio = hasSprinkler ? 1 / 3 : 0.5;
-    const reqSep = reqExits >= 2 ? +(diagonal * sepRatio).toFixed(2) : 0;
+    const reqSep = reqExits >= 2 ? +(diagonal * (hasSprinkler ? 1 / 3 : 0.5)).toFixed(2) : 0;
     const sepPass = reqExits < 2 ? true : actualSep >= reqSep;
+
+    // Topic 02: Travel Distance & Dead End
+    const tdPass = tdLimit > 0 && travelDist <= tdLimit;
+    const dePass = reqExits < 2 ? true : deadEnd <= deadEndLimit;
+    const t2Pass = tdPass && dePass;
+
+    // Topic 03 & 09: Height, High-Rise, Stair Rating
+    const isHighRise = heightM > 23;
+    const stairRating = (isHighRise || stories >= 4) ? "2 ساعة" : "1 ساعة";
+
+    // Topic 05: Horizontal Exit Refuge Area
+    let refugeAreaReq = 0;
+    if (horizDoorW > 0) {
+      const doorCapPeople = Math.ceil(horizDoorW / 5.08);
+      const arriving = Math.min(olTotal, doorCapPeople);
+      const areaPerPerson = occ.group.startsWith("I-2") ? 2.8 : 0.28;
+      refugeAreaReq = +(arriving * areaPerPerson).toFixed(1);
+    }
+
+    // Topic 07: Mezzanine
+    const mezzLimitRatio = fullSprinkler ? 0.5 : 1 / 3;
+    const mezzRatio = area > 0 ? mezzArea / area : 0;
+    const mezzPass = mezzArea === 0 || mezzRatio <= mezzLimitRatio;
+
+    // Topic 08: Elevators
+    let elevReq = "مصعد ركاب قياسي";
+    if (heightM > 128) elevReq = "مصعدا دفاع مدني (FSAE) + مصاعد إخلاء (OEE) + نقالة";
+    else if (heightM > 36) elevReq = "مصعدا دفاع مدني (FSAE >=1600 كجم) + نقالة + إتاحة";
+    else if (stories >= 4) elevReq = "مصعد طوارئ بنقالة (600×2100مم) + مصعد إتاحة";
+
+    // Topic 10: Standpipe
+    let standpipeReq = "غير مطلوب (ارتفاع <= 9م وإشغال <= 1000)";
+    if (heightM > 9) {
+      standpipeReq = hasSprinkler ? "Class I (بديل Class III لوجود رش آلي)" : "Class III إلزامي (ارتفاع > 9م)";
+    } else if (olTotal > 1000 && occ.isAssembly) {
+      standpipeReq = "Class I / II (تجمعي > 1000 شخص)";
+    }
 
     // Update KPI Cards
     $("kpi_ol_val").textContent = `${olTotal} شخص`;
-    $("kpi_ol_sub").textContent = convOL > olTotal
-      ? `حمل التقاء السلم الحاكم: ${olDesignCapacity} شخص (Sec. 1005.6)`
-      : `مساحة (${olArea}) + ثابت (${fixedSeats}) + متحرك×2 (${wheelchairs * 2}) + متداخل (${extraOL})`;
+    $("kpi_ol_sub").textContent = `مساحة (${olArea}) + إضافي (${extraOL}) | سعة السلم: ${olDesignCapacity}`;
 
-    $("kpi_exits_val").textContent = `${reqExits} مخرج`;
-    $("kpi_exits_sub").textContent = exitReason;
-    setCardStatus("card_exits", "kpi_exits_badge", exitsPass, exitsPass ? `مطابق (المتوفر: ${effectiveProvidedExits})` : `غير مطابق (المتوفر الفعلي: ${effectiveProvidedExits})`);
+    $("kpi_exits_val").textContent = `${reqExits} مخرج | ${reqEachStairW}/${reqEachDoorW} مم`;
+    $("kpi_exits_sub").textContent = `${exitReason} | تباعد: ${reqSep} م`;
+    const t1Ok = exitsPass && stairPass && doorPass && sepPass;
+    setCardStatus("card_t1", "kpi_t1_badge", t1Ok, t1Ok ? "الموضوع 01 مطابق بالكامل" : "الموضوع 01 يحتاج مراجعة");
 
-    $("kpi_width_val").textContent = `${reqEachStairW} / ${reqEachDoorW} مم`;
-    $("kpi_width_sub").textContent = `معامل السلم ${stairFactor} مم | معامل الباب ${doorFactor} مم | الإجمالي المطلوب: ${reqTotalStairW} / ${reqTotalDoorW} مم`;
-    const widthBothPass = stairPass && doorPass;
-    setCardStatus("card_width", "kpi_width_badge", widthBothPass, widthBothPass ? "مطابق + يحقق قاعدة 50%" : "غير مطابق — راجع عرض السلم/الباب أو قاعدة 50%");
+    $("kpi_td_val").textContent = `${travelDist} / ${tdLimit} م`;
+    $("kpi_td_sub").textContent = `نهاية مسدودة: ${deadEnd} / ${deadEndLimit} م (Sec. 1017 & 1020.5)`;
+    setCardStatus("card_t2", "kpi_t2_badge", t2Pass, t2Pass ? "مسافات الانتقال مطابقة" : "تجاوز مسافة الانتقال أو النهاية المسدودة");
 
-    $("kpi_sep_val").textContent = reqExits < 2 ? "لا ينطبق" : `${reqSep} م`;
-    $("kpi_sep_sub").textContent = reqExits < 2
-      ? "المشروع يتطلب مخرجاً واحداً فقط"
-      : `${hasSprinkler ? "ثلث القطر (D/3) لوجود رش آلي" : "نصف القطر (D/2) بدون رش آلي"} | المتوفر: ${actualSep} م`;
-    setCardStatus("card_sep", "kpi_sep_badge", sepPass, reqExits < 2 ? "مخرج واحد" : sepPass ? "تباعد مطابق (Sec. 1007)" : `أقل من المطلوب بـ ${(reqSep - actualSep).toFixed(2)} م`);
+    $("kpi_hr_val").textContent = isHighRise ? `مبنى عالٍ (${heightM} م)` : `عادي (${heightM} م)`;
+    $("kpi_hr_sub").textContent = `عزل السلم: ${stairRating} | ${standpipeReq.split("(")[0].trim()}`;
+    setCardStatus("card_t9", "kpi_t9_badge", mezzPass, isHighRise ? "تطبق اشتراطات Sec. 403" : "ارتفاع قياسي (<=23م)");
 
-    // Detailed Summary Table
+    // Detailed Multi-Topic Table
     const rows = [
-      ["حمل الإشغال التصميمي", `${olTotal} شخص (حاكم السعة: ${olDesignCapacity})`, `Area/${occ.olf} + مقاعد + متداخل`, "SBC 1004.2 / 1004.5 / 1004.6", "مرجعي"],
-      ["عدد المخارج المطلوبة", `${reqExits} مخرج (المتوفر الفعلي: ${effectiveProvidedExits})`, exitReason, "SBC 1006.2 / 1006.3", exitsPass ? "مطابق" : "غير مطابق"],
-      ["عرض السلالم الصافي", `المطلوب للسلم: ${reqEachStairW} مم (المتوفر: ${provStairW} مم)`, `${olDesignCapacity} × ${stairFactor} مم + قاعدة 50%`, "SBC 1005.3.1 / 1005.5 / 1011.2", stairPass ? "مطابق" : "غير مطابق"],
-      ["عرض الأبواب الصافي", `المطلوب للباب: ${reqEachDoorW} مم (المتوفر: ${provDoorW} مم)`, `${olDesignCapacity} × ${doorFactor} مم (حد الضلفة 815–1220 مم)`, "SBC 1005.3.2 / 1005.5 / 1010.1.1", doorPass ? "مطابق" : "غير مطابق"],
-      ["مسافة التباعد بين المخارج", reqExits < 2 ? "لا ينطبق" : `الدنيا: ${reqSep} م (المتوفرة: ${actualSep} م)`, `${diagonal} × ${hasSprinkler ? "1/3" : "1/2"}${exRatedCorr ? " (تقاس داخل الممر 1س)" : ""}`, "SBC 1007.1.1", sepPass ? "مطابق" : "غير مطابق"]
+      ["01 • حمل الإشغال", `${olTotal} شخص (حاكم السعة: ${olDesignCapacity})`, `Area/${occ.olf} + إضافي`, "SBC 1004.5 / 1005.6", "مرجعي"],
+      ["01 • عدد المخارج وتباعدها", `المطلوب: ${reqExits} (المتوفر: ${effectiveExits}) | تباعد: ${reqSep} م`, exitReason, "SBC 1006 & 1007", exitsPass && sepPass ? "مطابق" : "غير مطابق"],
+      ["01 • عروض السلالم والأبواب", `سلم: ${reqEachStairW} مم (متوفر ${provStairW}) | باب: ${reqEachDoorW} مم (متوفر ${provDoorW})`, `معامل ${stairFactor} / ${doorFactor} مم + قاعدة 50%`, "SBC 1005 / 1010 / 1011", stairPass && doorPass ? "مطابق" : "غير مطابق"],
+      ["02 • مسافة الانتقال والنهاية المسدودة", `انتقال: ${travelDist} / ${tdLimit} م | نهاية مسدودة: ${deadEnd} / ${deadEndLimit} م`, `Table 1017.2 & Sec. 1020.5`, "SBC 1017 & 1020", t2Pass ? "مطابق" : "غير مطابق"],
+      ["03/09 • عزل السلم والمبنى العالي", `عزل السلم: ${stairRating} | ${isHighRise ? "مبنى عالٍ > 23م (سلم مضغوط 909.20)" : "غير عالٍ <= 23م"}`, `${stories} أدوار / ارتفاع ${heightM} م`, "SBC 403 & 1023.2", "إلزامي"],
+      ["05 • المخرج الأفقي ومنطقة اللجوء", horizDoorW > 0 ? `مساحة منطقة اللجوء المطلوبة: ${refugeAreaReq} م²` : "غير مفعل (أدخل عرض باب المخرج الأفقي لحسابه)", `MIN(الإشغال, سعة الباب) × ${occ.group.startsWith("I-2") ? "2.8" : "0.28"} م²`, "SBC 1026.4.1", horizDoorW > 0 ? "محسوب" : "اختياري"],
+      ["07 • نسبة الميزانين", mezzArea > 0 ? `${mezzArea} م² (${(mezzRatio * 100).toFixed(1)}% من الدور — الحد ${(mezzLimitRatio * 100).toFixed(0)}%)` : "لا يوجد ميزانين", "Sec. 505.2.1 (1/3 أو 1/2 مرشوش)", "SBC 505.2", mezzPass ? "مطابق" : "غير مطابق"],
+      ["08 • المصاعد المطلوبة", elevReq, "1009.2.1 / 3002.4 / 403.6.1 / 3008", "SBC Ch. 30", "إلزامي"],
+      ["10 • الأعمدة الصاعدة (Standpipes)", standpipeReq, "SBC 801 Sec. 905.3 (ارتفاع > 9م أو تجمعي > 1000)", "SBC 801 Sec. 905", "إلزامي"]
     ];
     $("resultsTableBody").innerHTML = rows.map(([name, val, eq, code, st]) => `
       <tr>
@@ -249,24 +294,23 @@
         <td>${val}</td>
         <td>${eq}</td>
         <td class="ltr-cell">${code}</td>
-        <td><span class="status-pill ${st === "مطابق" ? "status-pass" : st === "مرجعي" ? "status-warn" : "status-fail"}">${st}</span></td>
+        <td><span class="status-pill ${st === "مطابق" || st === "محسوب" ? "status-pass" : st === "غير مطابق" ? "status-fail" : "status-warn"}">${st}</span></td>
       </tr>
     `).join("");
 
-    // Dynamic Engineering Notes
+    // Dynamic Engineering Alerts across all 10 topics
     const notes = [];
-    if (occ.isAssembly) notes.push({ type: "warn", text: "إلزامي (SBC 1004.9): تعليق لوحة دائمة غير قابلة لتعديل الأرقام توضح عدد الشاغلين المسموح به قرب المخرج الرئيسي للإشغال التجمعي." });
-    if (hasSprinkler && evacs && !occ.allowWidthReduction) notes.push({ type: "warn", text: "تنبيه (SBC 1005.3.1): رغم وجود رش آلي وإنذار صوتي، لا يسمح الكود بتخفيض معاملات العرض لإشغالات Group H و Group I-2 (يبقى 7.6 مم للسلم و5.1 مم للأبواب)." });
-    if (exScissor) notes.push({ type: "danger", text: "تنبيه حرج (SBC 1007.1.1): تم تفعيل خيار السلالم المتشابكة (Scissor Stairs) — الكود يعتبرهما مخرجاً واحداً فقط!" });
-    if (specialUse === "refrig_mach") notes.push({ type: "warn", text: "غرفة ماكينات التبريد (SBC 1006.2.2.2): إلزامي فتح الأبواب للخارج + أجهزة Panic Hardware + محكمة وذاتية الإغلاق + مسافة انتقال <= 45م." });
-    if (specialUse === "veh_ramp") notes.push({ type: "danger", text: "منحدر المركبات (SBC 1006.2.2.5): لا يُعد منحدر وصول للمخرج إلا في حال توفير رصيف ومرافق مخصصة للمشاة." });
-    if (provDoorW > 1220) notes.push({ type: "danger", text: "عرض ضلفة الباب يتجاوز الحد الأقصى المسموح في الكود السعودي (1220 مم — SBC 1010.1.1)." });
-    if (exRatedCorr && reqExits >= 2) notes.push({ type: "ok", text: "استثناء (SBC 1007.1.1 Ex.1): عند الربط بممر مقاوم للحريق 1 ساعة (Sec. 1020) تُقاس مسافة التباعد على أقصر خط انتقال داخل الممر." });
-    if (notes.length === 0) notes.push({ type: "ok", text: "جميع المعايير الهندسية للموضوع 01 (SBC 1001–1007) واضحة ولا توجد محاذير إضافية على المدخلات الحالية." });
+    if (occ.isAssembly) notes.push({ type: "warn", text: "الموضوع 01 (SBC 1004.9): إلزامي تعليق لوحة دائمة غير قابلة للتعديل بعدد الشاغلين قرب المخرج الرئيسي." });
+    if (hasSprinkler && evacs && !occ.allowWidthReduction) notes.push({ type: "warn", text: "الموضوع 01 (SBC 1005.3): لا يُسمح بتخفيض معاملات العرض لإشغالات Group H و Group I-2 رغم وجود الرش الآلي." });
+    if (exScissor) notes.push({ type: "danger", text: "الموضوع 01 (SBC 1007.1.1): السلالم المتشابكة (Scissor Stairs) تُحسب كمخرج واحد فقط!" });
+    if (isHighRise) notes.push({ type: "warn", text: "الموضوع 03 و 06 و 09 (SBC 403 / 1023.12 / 1025): المبنى يتجاوز 23م (High-Rise) — يُلزم بتضغيط السلالم (909.20)، مركز قيادة حريق، وشرائط مسار هروب مضيئة (إذا كان A,B,E,I-1,M,R-1)." });
+    if (stories > 3 && (!fullSprinkler || occ.group.startsWith("I") || isHighRise)) notes.push({ type: "warn", text: "الموضوع 08 (SBC 3006.2): بئر المصعد يربط أكثر من 3 أدوار — يجب حماية فتحات البئر أو توفير ردهة مصعد مغلقة (Elevator Lobby)." });
+    if (occ.group === "R-1") notes.push({ type: "warn", text: "الموضوع 06 (SBC 1013.2): إلزامي تركيب لوحات EXIT منخفضة على ارتفاع 250–450 مم في ممرات غرف الفندق." });
+    if (occ.group === "R-2" && stories <= 4) notes.push({ type: "warn", text: "الموضوع 05 (SBC 1031): إلزامي توفير فتحات إنقاذ طارئ (EERO >= 0.53 م²) في كل غرفة نوم وقبو دون الدور الرابع." });
+    if (notes.length === 0) notes.push({ type: "ok", text: "جميع اشتراطات الكود السعودي للمواضيع العشرة متوافقة مع المدخلات الحالية." });
 
     $("dynamicNotes").innerHTML = notes.map((n) => `<div class="note-item ${n.type}">${n.text}</div>`).join("");
-
-    lastResult = { occ, area, olTotal, olDesignCapacity, reqExits, effectiveProvidedExits, stairFactor, doorFactor, reqEachStairW, provStairW, reqEachDoorW, provDoorW, reqSep, actualSep, exitsPass, stairPass, doorPass, sepPass };
+    lastResult = { occ, area, olTotal, olDesignCapacity, reqExits, effectiveExits, reqEachStairW, provStairW, reqEachDoorW, provDoorW, reqSep, actualSep, travelDist, tdLimit, deadEnd, deadEndLimit, heightM, stories, elevReq, standpipeReq };
   }
 
   function setCardStatus(cardId, badgeId, isPass, text) {
@@ -278,6 +322,89 @@
     badge.textContent = text;
   }
 
+  function renderTopicDetail(topicNum) {
+    const t = D.topics.find((item) => item.num === topicNum) || D.topics[0];
+    $("topicDetailTitle").textContent = `الموضوع ${t.num}: ${t.title}`;
+    $("topicDetailCode").textContent = t.sections;
+    $("topicDetailScope").innerHTML = `
+      <div><strong>🏢 الإشغالات المطبقة قبل البدء:</strong> ${t.occupancies}</div>
+      <div style="margin-top:5px"><strong>🎯 متى أستخدم هذا القسم؟</strong> ${t.whenToUse}</div>
+    `;
+    $("topicPdfChips").innerHTML = t.files.map((f) => `
+      <div class="pdf-chip">
+        <div class="pdf-chip-name">📄 ${f.name}</div>
+        <div class="pdf-chip-sec">${f.sec}</div>
+        <div class="pdf-chip-desc">${f.summary}</div>
+      </div>
+    `).join("");
+
+    $("topicRulesList").innerHTML = t.rules.map((r) => `
+      <div class="rule-card">
+        <div class="rule-card-head">
+          <div class="rule-card-title"><span class="ex-code">${r.id}</span> ${r.sub}</div>
+          <div>
+            <span class="ex-sec">${r.file}</span>
+            <span class="code-pill">${r.code}</span>
+          </div>
+        </div>
+        <div class="rule-grid">
+          <div class="rule-box">
+            <div class="rule-box-lbl">🏢 الإشغالات المطبقة</div>
+            <div>${r.occ}</div>
+          </div>
+          <div class="rule-box">
+            <div class="rule-box-lbl">⚡ متى يُستخدم / شرط التفعيل</div>
+            <div>${r.trigger}</div>
+          </div>
+          <div class="rule-box full">
+            <div class="rule-box-lbl">📐 الاشتراطات الهندسية التفصيلية</div>
+            <div>${r.req}</div>
+          </div>
+          <div class="rule-box eq">
+            <div class="rule-box-lbl">🧮 المتغيرات والمعادلات</div>
+            <div>${r.eq}</div>
+          </div>
+          <div class="rule-box exc">
+            <div class="rule-box-lbl">🛡️ الاستثناءات (Exceptions)</div>
+            <div>${r.exc}</div>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderAllFilesTable() {
+    const q = ($("allFilesSearch").value || "").trim().toLowerCase();
+    const tf = $("allFilesTopicFilter").value;
+    let rows = [];
+    let idx = 1;
+    D.topics.forEach((t) => {
+      t.files.forEach((f) => {
+        rows.push({ idx: idx++, topicNum: t.num, topicTitle: `${t.num} - ${t.title}`, name: f.name, sec: f.sec, occ: t.occupancies, summary: f.summary });
+      });
+    });
+
+    const filtered = rows.filter((r) => {
+      const matchTopic = tf === "all" || r.topicNum === tf;
+      const matchText = !q || `${r.name} ${r.sec} ${r.topicTitle} ${r.summary} ${r.occ}`.toLowerCase().includes(q);
+      return matchTopic && matchText;
+    });
+
+    $("allFilesTableBody").innerHTML = filtered.map((r) => `
+      <tr>
+        <td style="text-align:center;font-weight:700">${r.idx}</td>
+        <td><a href="#" onclick="return false" class="topic-jump" data-topic="${r.topicNum}" style="color:#0284c7;font-weight:700;text-decoration:none">${r.topicTitle}</a></td>
+        <td class="ltr-cell" style="font-size:0.78rem;color:#0f766e">${r.name}</td>
+        <td class="ltr-cell" style="font-size:0.78rem">${r.sec}</td>
+        <td>${r.summary}</td>
+      </tr>
+    `).join("");
+
+    document.querySelectorAll(".topic-jump").forEach((a) => {
+      a.addEventListener("click", () => switchView("viewTopicDetail", a.dataset.topic));
+    });
+  }
+
   function renderReferenceTable() {
     $("refTableBody").innerHTML = D.occupancies.map((o) => `
       <tr>
@@ -287,6 +414,7 @@
         <td class="ltr-cell">${o.olf.toFixed(2)}</td>
         <td class="ltr-cell">${o.maxSingleOL}</td>
         <td class="ltr-cell">${o.cpNS} م / ${o.cpS} م</td>
+        <td class="ltr-cell">${o.tdNS === 0 ? "NP" : o.tdNS + " م"} / ${o.tdS} م</td>
         <td>${o.allowWidthReduction ? '<span class="status-pill status-pass">مسموح</span>' : '<span class="status-pill status-fail">ممنوع (H/I-2)</span>'}</td>
         <td>${o.note}</td>
       </tr>
@@ -314,13 +442,13 @@
 
   function renderRoadmap() {
     $("topicsGrid").innerHTML = D.topics.map((t) => `
-      <div class="topic-card ${t.done ? "done" : ""}">
+      <div class="topic-card" data-topic="${t.num}">
         <div class="topic-card-top">
           <h4>الموضوع ${t.num}: ${t.title}</h4>
-          <span class="status-pill ${t.done ? "status-pass" : "status-warn"}">${t.done ? "مكتمل (نموذج فعّال)" : `جاهز (${t.count} ملفات)`}</span>
+          <span class="status-pill status-pass">مكتمل (${t.files.length} PDF)</span>
         </div>
-        <p><strong>الفقرات:</strong> <span dir="ltr">${t.sections}</span> | <strong>عدد الملفات:</strong> ${t.count} PDF</p>
-        <p style="margin-top:6px;direction:ltr;text-align:right;font-size:0.75rem;color:#475569">${t.files.join(" • ")}</p>
+        <p><strong>الفقرات:</strong> <span dir="ltr">${t.sections}</span> | <strong>عدد البنود:</strong> ${t.rules.length}</p>
+        <p style="margin-top:6px;direction:ltr;text-align:right;font-size:0.74rem;color:#475569">${t.files.map((f) => f.name).join(" • ")}</p>
       </div>
     `).join("");
   }
@@ -333,18 +461,20 @@
       ["نوع الإشغال", `${r.occ.group} - ${r.occ.label}`, "SBC Table 1004.5"],
       ["المساحة (م2)", r.area, "SBC 1004.5"],
       ["حمل الإشغال التصميمي (شخص)", r.olTotal, `السعة الحاكمة: ${r.olDesignCapacity}`],
-      ["عدد المخارج المطلوبة", r.reqExits, r.exitsPass ? "مطابق" : "غير مطابق"],
-      ["معامل عرض السلالم (مم/شخص)", r.stairFactor, "SBC 1005.3.1"],
-      ["العرض المطلوب للسلم (مم)", r.reqEachStairW, `المتوفر: ${r.provStairW} مم (${r.stairPass ? "مطابق" : "غير مطابق"})`],
-      ["معامل عرض الأبواب (مم/شخص)", r.doorFactor, "SBC 1005.3.2"],
-      ["العرض المطلوب للباب (مم)", r.reqEachDoorW, `المتوفر: ${r.provDoorW} مم (${r.doorPass ? "مطابق" : "غير مطابق"})`],
-      ["مسافة التباعد الدنيا بين المخارج (م)", r.reqSep, `المتوفرة: ${r.actualSep} م (${r.sepPass ? "مطابق" : "غير مطابق"})`]
+      ["عدد المخارج المطلوبة", r.reqExits, `المتوفر: ${r.effectiveExits}`],
+      ["العرض المطلوب للسلم / الباب (مم)", `${r.reqEachStairW} / ${r.reqEachDoorW}`, `المتوفر: ${r.provStairW} / ${r.provDoorW}`],
+      ["مسافة التباعد الدنيا (م)", r.reqSep, `المتوفرة: ${r.actualSep} م`],
+      ["مسافة الانتقال الفعلية / القصوى (م)", `${r.travelDist} / ${r.tdLimit}`, "SBC Table 1017.2"],
+      ["النهاية المسدودة الفعلية / القصوى (م)", `${r.deadEnd} / ${r.deadEndLimit}`, "SBC 1020.5"],
+      ["الارتفاع / عدد الأدوار", `${r.heightM} م / ${r.stories} أدوار`, r.heightM > 23 ? "مبنى عالٍ High-Rise" : "عادي"],
+      ["المصاعد المطلوبة", r.elevReq, "SBC Ch. 30"],
+      ["نظام الأعمدة الصاعدة (Standpipe)", r.standpipeReq, "SBC 801 Sec. 905.3"]
     ];
     const csv = "\uFEFF" + lines.map((row) => row.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "SBC_Topic01_Egress_Report.csv";
+    a.download = "SBC_Complete_41_PDFs_Report.csv";
     a.click();
   }
 

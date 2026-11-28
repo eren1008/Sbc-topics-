@@ -1,69 +1,861 @@
 /* ==========================================================================
-   Structured Engineering Dataset — SBC 201 & SBC 801
-   Topic 01 (Complete 5-PDF Module) + Master Roadmap of All 41 PDFs / 10 Topics
+   Complete Engineering Dataset — ALL 41 PDFs & ALL 10 Topics (SBC 201 / 801)
    ========================================================================== */
 window.SBC_DATA = {
   occupancies: [
-    { id: "A_tables", group: "A-2 / A-3", label: "تجمعي — طاولات وكراسي (مطاعم / قاعات)", basis: "صافي (Net)", olf: 1.40, maxSingleOL: 49, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: true, note: "يلزم تعليق لوحة دائمة بعدد الشاغلين قرب المخرج الرئيسي (Sec. 1004.9)." },
-    { id: "A_conc", group: "A-3", label: "تجمعي — كراسي غير ثابتة كثيفة (قاعات محاضرات)", basis: "صافي (Net)", olf: 0.65, maxSingleOL: 49, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: true, note: "أعلى كثافة للمقاعد غير الثابتة؛ يلزم تعليق لوحة عدد الشاغلين (1004.9)." },
-    { id: "A_stand", group: "A-3", label: "تجمعي — مساحات وقوف", basis: "صافي (Net)", olf: 0.46, maxSingleOL: 49, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: true, note: "للمناطق المزدحمة بدون مقاعد؛ يلزم تعليق لوحة عدد الشاغلين (1004.9)." },
-    { id: "B_gen", group: "B", label: "إداري ومكاتب عامة (Group B)", basis: "إجمالي (Gross)", olf: 14.00, maxSingleOL: 49, cpNS: 23, cpS: 30, allowWidthReduction: true, isAssembly: false, note: "في SBC 201-2018 معامل المكاتب 14 م² إجمالي؛ والرش الشامل يرفع المسار المشترك لـ 30م." },
-    { id: "B_conc", group: "B", label: "إداري كثيف / مراكز اتصال (Concentrated B)", basis: "إجمالي (Gross)", olf: 4.60, maxSingleOL: 49, cpNS: 23, cpS: 30, allowWidthReduction: true, isAssembly: false, note: "يطبق على مراكز الاتصال وصالات التداول والمكاتب عالية الكثافة." },
-    { id: "E_class", group: "E", label: "تعليمي — فصول دراسية (Group E)", basis: "صافي (Net)", olf: 1.90, maxSingleOL: 49, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: false, note: "عرض الممرات التعليمية يصل 1830 مم عند إشغال >= 100 شخص (1020.2)." },
-    { id: "E_shop", group: "E", label: "تعليمي — ورش ومعامل مهنية (Group E)", basis: "صافي (Net)", olf: 4.60, maxSingleOL: 49, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: false, note: "الورش والمعامل التدريبية داخل المدارس والجامعات." },
-    { id: "F_ind", group: "F-1 / F-2", label: "صناعي ومصانع (Group F)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 49, cpNS: 23, cpS: 30, allowWidthReduction: true, isAssembly: false, note: "الرش الآلي الشامل يرفع المسار المشترك إلى 30م." },
-    { id: "H_123", group: "H-1 / H-2 / H-3", label: "خطورة عالية جداً (H-1 / H-2 / H-3)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 3, cpNS: 7.6, cpS: 7.6, allowWidthReduction: false, isAssembly: false, note: "حد المخرج الواحد 3 أشخاص فقط و7.6م؛ ولا يُسمح بتخفيض معامل العرض (Sec. 1005.3)." },
-    { id: "H_45", group: "H-4 / H-5", label: "خطورة عالية (H-4 / H-5)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 10, cpNS: 23, cpS: 23, allowWidthReduction: false, isAssembly: false, note: "حد المخرج الواحد 10 أشخاص؛ ولا يُسمح بتخفيض معامل العرض (Sec. 1005.3)." },
-    { id: "I2_sleep", group: "I-2", label: "مؤسسي / مستشفيات — غرف نوم مرضى (I-2)", basis: "إجمالي (Gross)", olf: 11.00, maxSingleOL: 10, cpNS: 23, cpS: 23, allowWidthReduction: false, isAssembly: false, note: "لا يُسمح بتخفيض معامل العرض في I-2 (Sec. 1005.3)؛ راجع استثناء أجنحة الرعاية 407.4." },
-    { id: "I2_treat", group: "I-2", label: "مؤسسي / مستشفيات — علاج داخلي (I-2 Inpatient)", basis: "إجمالي (Gross)", olf: 22.00, maxSingleOL: 10, cpNS: 23, cpS: 23, allowWidthReduction: false, isAssembly: false, note: "الممرات الناقلة للأسرة تتطلب عرضاً لا يقل عن 2440 مم؛ ولا يُخفض معامل العرض." },
-    { id: "M_sales", group: "M", label: "تجاري ومعارض بيع (Group M)", basis: "إجمالي (Gross)", olf: 5.60, maxSingleOL: 49, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: false, note: "في SBC 201-2018 تم توحيد معامل مساحات البيع التجارية إلى 5.6 م² إجمالي." },
-    { id: "R1_hotel", group: "R-1", label: "فندقي وإيواء مؤقت (Group R-1)", basis: "إجمالي (Gross)", olf: 18.60, maxSingleOL: 10, cpNS: 23, cpS: 23, allowWidthReduction: true, isAssembly: false, note: "حد المخرج الواحد للفراغ 10 أشخاص ومسار مشترك 23م." },
-    { id: "R2_apt", group: "R-2", label: "سكني متعدد الوحدات (Group R-2)", basis: "إجمالي (Gross)", olf: 18.60, maxSingleOL: 20, cpNS: 23, cpS: 38, allowWidthReduction: true, isAssembly: false, note: "يسمح بمخرج واحد للطابق حتى 4 أدوار و4 وحدات/دور مع رش آلي ومسافة <= 38م (Table 1006.3.4(1))." },
-    { id: "S_store", group: "S-1 / S-2", label: "مستودعات وتخزين وميكانيكا (Group S)", basis: "إجمالي (Gross)", olf: 28.00, maxSingleOL: 29, cpNS: 23, cpS: 30, allowWidthReduction: true, isAssembly: false, note: "حد المخرج الواحد 29 شخصاً؛ والرش الآلي يرفع المسار المشترك إلى 30م." }
+    { id: "A_tables", group: "A-2 / A-3", label: "تجمعي — طاولات وكراسي (مطاعم / قاعات)", basis: "صافي (Net)", olf: 1.40, maxSingleOL: 49, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: true, note: "يلزم تعليق لوحة دائمة بعدد الشاغلين قرب المخرج الرئيسي (Sec. 1004.9)." },
+    { id: "A_conc", group: "A-3", label: "تجمعي — كراسي غير ثابتة كثيفة (قاعات محاضرات)", basis: "صافي (Net)", olf: 0.65, maxSingleOL: 49, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: true, note: "أعلى كثافة للمقاعد غير الثابتة؛ يلزم تعليق لوحة عدد الشاغلين (1004.9)." },
+    { id: "A_stand", group: "A-3", label: "تجمعي — مساحات وقوف", basis: "صافي (Net)", olf: 0.46, maxSingleOL: 49, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: true, note: "للمناطق المزدحمة بدون مقاعد؛ يلزم تعليق لوحة عدد الشاغلين (1004.9)." },
+    { id: "B_gen", group: "B", label: "إداري ومكاتب عامة (Group B)", basis: "إجمالي (Gross)", olf: 14.00, maxSingleOL: 49, cpNS: 23, cpS: 30, tdNS: 60, tdS: 90, allowWidthReduction: true, isAssembly: false, note: "في SBC 201-2018 معامل المكاتب 14 م² إجمالي؛ والرش الشامل يرفع المسار المشترك لـ 30م والانتقال لـ 90م." },
+    { id: "B_conc", group: "B", label: "إداري كثيف / مراكز اتصال (Concentrated B)", basis: "إجمالي (Gross)", olf: 4.60, maxSingleOL: 49, cpNS: 23, cpS: 30, tdNS: 60, tdS: 90, allowWidthReduction: true, isAssembly: false, note: "يطبق على مراكز الاتصال وصالات التداول والمكاتب عالية الكثافة." },
+    { id: "E_class", group: "E", label: "تعليمي — فصول دراسية (Group E)", basis: "صافي (Net)", olf: 1.90, maxSingleOL: 49, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "عرض الممرات التعليمية يصل 1800 مم عند إشغال >= 100 شخص (Table 1020.2)." },
+    { id: "E_shop", group: "E", label: "تعليمي — ورش ومعامل مهنية (Group E)", basis: "صافي (Net)", olf: 4.60, maxSingleOL: 49, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "الورش والمعامل التدريبية داخل المدارس والجامعات." },
+    { id: "F_1", group: "F-1", label: "صناعي متوسط الخطورة (Group F-1)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 49, cpNS: 23, cpS: 30, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "تصل مسافة الانتقال إلى 120م في دور واحد بارتفاع >= 7.3م مرشوش (1017.2.2)." },
+    { id: "F_2", group: "F-2", label: "صناعي منخفض الخطورة (Group F-2)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 49, cpNS: 23, cpS: 30, tdNS: 90, tdS: 120, allowWidthReduction: true, isAssembly: false, note: "مسافة الانتقال 90م بدون رش و120م مع الرش الآلي الشامل." },
+    { id: "H_123", group: "H-1 / H-2 / H-3", label: "خطورة عالية جداً (H-1 / H-2 / H-3)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 3, cpNS: 7.5, cpS: 7.5, tdNS: 0, tdS: 23, allowWidthReduction: false, isAssembly: false, note: "غير مسموح بدون رش؛ حد المخرج الواحد 3 أشخاص و7.5م؛ لا يُخفض معامل العرض." },
+    { id: "H_45", group: "H-4 / H-5", label: "خطورة عالية (H-4 / H-5)", basis: "إجمالي (Gross)", olf: 9.30, maxSingleOL: 10, cpNS: 23, cpS: 23, tdNS: 0, tdS: 53, allowWidthReduction: false, isAssembly: false, note: "حد المخرج الواحد 10 أشخاص؛ مسافة الانتقال 53م لـ H-4 و60م لـ H-5؛ لا يُخفض معامل العرض." },
+    { id: "I2_sleep", group: "I-2", label: "مستشفيات — غرف نوم مرضى (I-2 Sleeping)", basis: "إجمالي (Gross)", olf: 11.00, maxSingleOL: 10, cpNS: 23, cpS: 23, tdNS: 0, tdS: 60, allowWidthReduction: false, isAssembly: false, note: "يلزم الرش الآلي؛ ممرات الأسرة 2400 مم؛ لا يُسمح بتخفيض معامل العرض (1005.3)." },
+    { id: "I2_treat", group: "I-2", label: "مستشفيات — علاج داخلي (I-2 Inpatient)", basis: "إجمالي (Gross)", olf: 22.00, maxSingleOL: 10, cpNS: 23, cpS: 23, tdNS: 0, tdS: 60, allowWidthReduction: false, isAssembly: false, note: "أقسام العلاج والعمليات الداخلية؛ المخارج الأفقية تصل حتى 2/3 المخارج (1026.1)." },
+    { id: "M_sales", group: "M", label: "تجاري ومعارض بيع (Group M)", basis: "إجمالي (Gross)", olf: 5.60, maxSingleOL: 49, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "معامل البيع 5.6 م² (و2.8 م² للدور الأرضي والقبو بجدول 1004.5)." },
+    { id: "R1_hotel", group: "R-1", label: "فندقي وإيواء مؤقت (Group R-1)", basis: "إجمالي (Gross)", olf: 18.60, maxSingleOL: 10, cpNS: 23, cpS: 23, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "يلزم لوحات خروج منخفضة (250–450 مم) في ممرات غرف النزلاء (Sec. 1013.2)." },
+    { id: "R2_apt", group: "R-2", label: "سكني متعدد الوحدات (Group R-2)", basis: "إجمالي (Gross)", olf: 18.60, maxSingleOL: 20, cpNS: 23, cpS: 38, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "مخرج واحد حتى 4 أدوار و4 وحدات/دور مرشوش ومسافة <=38م مع فتحات إنقاذ EERO (1031)." },
+    { id: "S_store", group: "S-1 / S-2", label: "مستودعات وتخزين وميكانيكا (Group S)", basis: "إجمالي (Gross)", olf: 28.00, maxSingleOL: 29, cpNS: 23, cpS: 30, tdNS: 60, tdS: 75, allowWidthReduction: true, isAssembly: false, note: "حد المخرج الواحد 29 شخصاً؛ السلم البحاري/المتعاقب مسموح للميزانين الفني <=23م² و<=5 أشخاص." }
   ],
 
   exceptions: [
-    { id: "EX-01", sec: "SBC 1004.5", file: "OCCUPANT LOAD CALCULATION.pdf", title: "اعتماد عدد الشاغلين الفعلي بموافقة الدفاع المدني", desc: "يجوز استخدام العدد الفعلي المصمم له الفراغ حتى لو كان أقل من القيمة المحسوبة بجدول 1004.5 بشرط اعتماد الجهة المختصة.", effect: "توثيق مرجعي بالنتيجة" },
-    { id: "EX-02", sec: "SBC 1004.7", file: "OCCUPANT LOAD CALCULATION.pdf", title: "استثناء الساحات الخارجية للخدمة فقط أو السكني R-3/R-2", desc: "ساحات الخدمة فقط يكفيها مخرج واحد، وتستثنى الساحات التابعة لـ R-3 والوحدات الفردية بـ R-2.", effect: "إعفاء الساحات الخارجية" },
-    { id: "EX-03", sec: "SBC 1005.3.1 & 1005.3.2", file: "Means of Egress Width.pdf", title: "تخفيض معاملات العرض (5.1 مم للسلالم / 3.8 مم للأبواب)", desc: "ينطبق تلقائياً عند وجود نظام رش آلي شامل + نظام إنذار صوتي للطوارئ (EVACS) لجميع الإشغالات ما عدا Group H و Group I-2.", effect: "يُفعّل تلقائياً من مدخلات الرش والإنذار الصوتي" },
-    { id: "EX-04", sec: "SBC 1006.2.1 (Ex. 1)", file: "Number Of Exits.pdf", title: "البهو والردهات (Foyers / Lobbies / Vestibules)", desc: "لا يُشترط حساب عدد مخارج الردهة على الحمل التراكمي للمناطق المفرّغة خلالها، لكن يجب تصميم سعة المخارج (العرض) على الحمل التراكمي.", effect: "يحسب عدد المخارج على حمل الفراغ ذاته فقط" },
-    { id: "EX-05", sec: "SBC 1006.2.1 (Ex. 2)", file: "Number Of Exits.pdf", title: "أجنحة الرعاية في المستشفيات I-2 (Sec. 407.4)", desc: "تخضع أجنحة الرعاية المطابقة لفقرة 407.4 لاشتراطات مخارجها المخصصة بدلاً من جدول 1006.2.1 العام.", effect: "مرجع خاص بإشغال I-2" },
-    { id: "EX-06", sec: "SBC 1006.2.1 (Ex. 3)", file: "Number Of Exits.pdf", title: "غرف الميكانيكا والسطح الفني غير المأهولة", desc: "لا يُشترط فيها الالتزام بقياس مسافة المسار المشترك للخروج (Common Path).", effect: "يلغي تفعيل مخرج ثانٍ بسبب طول المسار المشترك" },
-    { id: "EX-07", sec: "SBC 1006.3.4", file: "Number Of Exits.pdf", title: "حالات السماح بمخرج واحد للطابق (R-2 / R-3 / R-4 / ركن آلي)", desc: "يُسمح بمخرج واحد للمباني السكنية R-2 (حتى 4 أدوار و4 وحدات/دور مرشوشة ومسافة <=38م)، أو R-3/R-4، أو مواقف الركن الآلي، أو فراغات تفرغ مباشرة للخارج.", effect: "يسمح بمخرج واحد عند تحقق الشروط" },
-    { id: "EX-08", sec: "SBC 1007.1.1 (Ex. 1)", file: "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf", title: "قياس التباعد عبر ممر مقاوم للحريق 1 ساعة (Sec. 1020)", desc: "عند الربط بين سلالم الخروج الداخلية بممر معزول 1 ساعة، تُقاس مسافة التباعد على أقصر خط انتقال داخل الممر بدلاً من الخط المستقيم.", effect: "تغيير طريقة قياس مسافة التباعد" },
-    { id: "EX-09", sec: "SBC 1007.1.1 (Ex. 2)", file: "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf", title: "تخفيض مسافة التباعد إلى ثلث القطر (D/3) مع الرش الشامل", desc: "عند تجهيز المبنى بالكامل بنظام رش آلي (903.3.1.1 أو 903.3.1.2)، تنخفض المسافة الدنيا بين المخرجين من 1/2 إلى 1/3 أقصى قطر مائل.", effect: "يُفعّل تلقائياً عند اختيار نظام الرش الآلي" },
-    { id: "EX-10", sec: "SBC 1006.3.2", file: "Number Of Exits.pdf", title: "المرور بأكثر من طابق مجاور (7 حالات استثنائية)", desc: "يُسمح بعبور أكثر من دور مجاور في: الوحدات السكنية حتى 4 أدوار (R-1/2/3)، الأتريوم (404)، المواقف المفتوحة، شرفات المسارح، والسلالم الخارجية بين الأسطح المأهولة.", effect: "استثناء قاعدة الطابق المجاور الواحد" },
-    { id: "EX-11", sec: "SBC 1006.2.2.1", file: "Number Of Exits.pdf", title: "غرف الغلايات والمحارق والأفران (>45م² و >422,000 kJ)", desc: "يلزم بابان بتباعد >= 1/2 القطر؛ ويُسمح بأن يكون أحد البابين سلماً ثابتاً أو درجاً متعاقباً.", effect: "استخدام خاص يفرض مخرجين" },
-    { id: "EX-12", sec: "SBC 1006.2.2.2", file: "Number Of Exits.pdf", title: "غرف ماكينات التبريد (>100م²)", desc: "يلزم مخرجان بتباعد >= 1/2 البعد الأفقي الأقصى، ومسافة <=45م، وأبواب تفتح للخارج بأقفال ذعر Panic Hardware وذاتية الإغلاق.", effect: "استخدام خاص يفرض مخرجين + Panic Hardware" },
-    { id: "EX-13", sec: "SBC 1006.2.2.3", file: "Number Of Exits.pdf", title: "الغرف المبردة (>100م² وأقل من 20°م)", desc: "يلزم مخرجان ومسافة <=45م (غير مرشوش)، ويستثنى عند محدودية كمية الفريون وفق SBC 501.", effect: "استخدام خاص يفرض مخرجين" },
-    { id: "EX-14", sec: "SBC 1007.1.1", file: "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf", title: "السلالم المتشابكة (Scissor Stairs) تُحسب كمخرج واحد", desc: "أي سلمين متداخلين داخل نفس البئر يُعدان مخرجاً واحداً فقط ولا يحققان اشتراط وجود مخرجين منفصلين.", effect: "تنبيه تصميمي حرج" }
+    { id: "EX-01", sec: "SBC 1004.5", file: "OCCUPANT LOAD CALCULATION.pdf", title: "اعتماد عدد الشاغلين الفعلي بموافقة الدفاع المدني", desc: "يجوز استخدام العدد الفعلي المصمم له الفراغ حتى لو كان أقل من القيمة المحسوبة بجدول 1004.5 بشرط اعتماد الجهة المختصة." },
+    { id: "EX-02", sec: "SBC 1005.3.1 & 1005.3.2", file: "Means of Egress Width.pdf", title: "تخفيض معاملات العرض (5.08 مم للسلالم / 3.81 مم للأبواب والممرات)", desc: "ينطبق تلقائياً عند وجود نظام رش آلي شامل + نظام إنذار صوتي للطوارئ (EVACS) لجميع الإشغالات ما عدا Group H و Group I-2." },
+    { id: "EX-03", sec: "SBC 1006.2.1 (Ex. 1)", file: "Number Of Exits.pdf", title: "البهو والردهات (Foyers / Lobbies / Vestibules)", desc: "لا يُشترط حساب عدد مخارج الردهة على الحمل التراكمي للمناطق المفرّغة خلالها، لكن يجب تصميم سعة المخارج (العرض) على الحمل التراكمي." },
+    { id: "EX-04", sec: "SBC 1006.2.1 (Ex. 3)", file: "Number Of Exits.pdf", title: "غرف الميكانيكا والسطح الفني غير المأهولة", desc: "لا يُشترط فيها الالتزام بقياس مسافة المسار المشترك للخروج (Common Path)." },
+    { id: "EX-05", sec: "SBC 1006.3.4", file: "Number Of Exits.pdf", title: "حالات السماح بمخرج واحد للطابق (R-2 / R-3 / R-4 / ركن آلي)", desc: "يُسمح بمخرج واحد للمباني السكنية R-2 (حتى 4 أدوار و4 وحدات/دور مرشوشة ومسافة <=38م)، أو R-3/R-4، أو مواقف الركن الآلي." },
+    { id: "EX-06", sec: "SBC 1007.1.1 (Ex. 1 & 2)", file: "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf", title: "تخفيض تباعد المخارج لـ D/3 مع الرش الشامل أو القياس عبر ممر 1 ساعة", desc: "مع الرش الآلي الشامل تنخفض مسافة الفصل من D/2 إلى D/3، وتُقاس عبر خط السير داخل الممر المعزول 1 ساعة إن وُجد." },
+    { id: "EX-07", sec: "SBC 1017.2.1 & 1017.2.2", file: "Section_1017_Exit_Access_Travel_Distance.pdf", title: "زيادة مسافة الانتقال (+30م عبر شرفة خارجية / 120م في F-1 & S-1)", desc: "تُضاف حتى 30م عند المرور بشرفة خروج خارجية (1021)، وتصل إلى 120م في F-1 و S-1 من دور واحد بارتفاع >=7.3م مرشوش بالكامل." },
+    { id: "EX-08", sec: "SBC 1020.5 (Ex. 1–4)", file: "Section_1020_Corridors.pdf", title: "النهايات المسدودة بالممرات (15م للمرشوش أو الطول < 2.5 × العرض)", desc: "يرتفع حد النهاية المسدودة من 6م إلى 15م في المباني المرشوشة بالكامل، أو يكون غير محدود إذا كان الطول أقل من 2.5 ضعف أقل عرض." },
+    { id: "EX-09", sec: "SBC 1019.3 (Ex. 1–9)", file: "Section_1019_Exit_Access_Stairways_and_Ramps.pdf", title: "السلالم المفتوحة غير المعزولة (ربط دورين / أتريوم / ستائر دخان 450مم)", desc: "يُسمح ببقاء سلم الوصول مفتوحاً إذا ربط دورين فقط، أو داخل شقة حتى 4 أدوار، أو بفتحة <= ضعف السلم مع ستارة دخان 450مم ورشاشات متقاربة." },
+    { id: "EX-10", sec: "SBC 1026.1 (Ex. 1 & 2)", file: "Section 1026 Horizontal Exits.pdf", title: "نسبة المخارج الأفقية (50% عام / 2/3 في I-2 / 100% في I-3)", desc: "تمثل المخارج الأفقية حتى 50% من المخارج (وترتفع إلى 66.7% في المستشفيات I-2 و100% في السجون I-3)." },
+    { id: "EX-11", sec: "SBC 505.2.1 & 505.2.3", file: "MEZZANINE.pdf", title: "زيادة مساحة الميزانين (1/2 في Type I/II المرشوش) وشروط الإغلاق", desc: "ترتفع مساحة الميزانين المسموحة من 1/3 إلى 1/2 في المباني المرشوشة مع إنذار صوتي (Type I/II)، ويُسمح بإغلاقه لـ <=10 أشخاص أو مخرجين." },
+    { id: "EX-12", sec: "SBC 3006.2 & 3007 / 3008", file: "ELEVATOR LOBBIES AND HOISTWAY OPENING PROTECTION.pdf", title: "ردهات المصاعد ومصاعد الدفاع المدني (>36م) والإخلاء (>128م)", desc: "يلزم Lobby محمي عند ربط >3 أدوار (غير مرشوش / I / عالي >23م)، ومصعدا دفاع مدني فوق 36م، ومصاعد إخلاء بديلة للسلم فوق 128م." },
+    { id: "EX-13", sec: "SBC 801 Sec. 905.3.1", file: "When Standpipe is required.pdf", title: "استبدال الأعمدة الصاعدة Class III بـ Class I في المباني المرشوشة", desc: "المباني بارتفاع أو عمق > 9م تتطلب Class III، ويُكتفى بـ Class I عند تغطية المبنى بالكامل بنظام رش آلي." },
+    { id: "EX-14", sec: "SBC 1007.1.1", file: "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf", title: "السلالم المتشابكة (Scissor Stairs) تُحسب كمخرج واحد", desc: "أي سلمين متداخلين داخل نفس البئر يُعدان مخرجاً واحداً فقط ولا يحققان اشتراط وجود مخرجين منفصلين." }
   ],
 
   presets: [
     {
-      name: "قاعة مؤتمرات ومطعم (A-3) — 420 م²",
-      values: { occ: "A_tables", area: 420, fixedSeats: 0, wheelchairs: 2, benchLen: 0, extraOL: 35, convOL: 0, level: "ground", commonPath: 18, diagonal: 36, actualSep: 14, sprinkler: "nfpa13", evacs: "yes", specialUse: "none", provExits: 2, provStairW: 1200, provDoorW: 1000 }
+      name: "برج إداري ومكاتب (B) — 8 أدوار (28 م) مرشوش",
+      values: { occ: "B_gen", area: 850, extraOL: 30, convOL: 0, commonPath: 24, travelDist: 68, deadEnd: 11, diagonal: 46, actualSep: 17, sprinkler: "nfpa13", evacs: "yes", stories: 8, heightM: 28, mezzArea: 0, horizDoorW: 0, provExits: 2, provStairW: 1200, provDoorW: 1000 }
     },
     {
-      name: "جناح مستشفى (I-2) — 650 م² (بدون تخفيض عرض)",
-      values: { occ: "I2_sleep", area: 650, fixedSeats: 0, wheelchairs: 4, benchLen: 0, extraOL: 0, convOL: 110, level: "upper", commonPath: 21, diagonal: 45, actualSep: 16, sprinkler: "nfpa13", evacs: "yes", specialUse: "none", provExits: 2, provStairW: 1200, provDoorW: 1100 }
+      name: "مستشفى رعاية داخلية (I-2) — 5 أدوار (21 م) + مخرج أفقي",
+      values: { occ: "I2_sleep", area: 900, extraOL: 20, convOL: 110, commonPath: 19, travelDist: 48, deadEnd: 7, diagonal: 52, actualSep: 20, sprinkler: "nfpa13", evacs: "yes", stories: 5, heightM: 21, mezzArea: 0, horizDoorW: 2000, provExits: 3, provStairW: 1200, provDoorW: 1100 }
     },
     {
-      name: "مبنى إداري مكاتب (B) + ميزانين — 850 م²",
-      values: { occ: "B_gen", area: 850, fixedSeats: 0, wheelchairs: 1, benchLen: 0, extraOL: 25, convOL: 0, level: "upper", commonPath: 26, diagonal: 48, actualSep: 15, sprinkler: "none", evacs: "no", specialUse: "none", provExits: 2, provStairW: 1120, provDoorW: 900 }
+      name: "قاعة مؤتمرات ومطعم (A-3) + ميزانين — 420 م²",
+      values: { occ: "A_tables", area: 420, extraOL: 35, convOL: 0, commonPath: 18, travelDist: 45, deadEnd: 5, diagonal: 36, actualSep: 14, sprinkler: "nfpa13", evacs: "yes", stories: 2, heightM: 8.5, mezzArea: 130, horizDoorW: 0, provExits: 2, provStairW: 1200, provDoorW: 1000 }
+    },
+    {
+      name: "برج شاهق متعدد الاستخدام (B/M) — 14 دوراً (48 م)",
+      values: { occ: "B_conc", area: 1100, extraOL: 40, convOL: 0, commonPath: 22, travelDist: 72, deadEnd: 12, diagonal: 54, actualSep: 20, sprinkler: "nfpa13", evacs: "yes", stories: 14, heightM: 48, mezzArea: 0, horizDoorW: 0, provExits: 3, provStairW: 1300, provDoorW: 1100 }
     }
   ],
 
   topics: [
-    { num: "01", title: "الأسس وحمل الإشغال وعدد وعرض وتباعد المخارج", sections: "SBC 1001–1007", count: 5, done: true, files: ["Means of Egress Components.pdf", "OCCUPANT LOAD CALCULATION.pdf", "Means of Egress Width.pdf", "Number Of Exits.pdf", "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf"] },
-    { num: "02", title: "مسار الوصول للمخرج ومسافات الانتقال والممرات", sections: "SBC 1016–1021", count: 5, done: false, files: ["Section_1016_Exit_Access.pdf", "Section_1017_Exit_Access_Travel_Distance.pdf", "Section_1018_Aisles.pdf", "Section_1020_Corridors.pdf", "Section 1021 Egress Balconies.pdf"] },
-    { num: "03", title: "السلالم والمنحدرات ومستويات الارتفاع", sections: "SBC 1003, 1011, 1012, 1019, 1023", count: 6, done: false, files: ["Section 1011 Stairways.pdf", "Section 1012 Ramps.pdf", "Section_1019_Exit_Access_Stairways_and_Ramps.pdf", "Section 1023 Interior Exit Stairways and Ramps.pdf", "Elevation Change.pdf", "Means of Egress Allowable Height.pdf"] },
-    { num: "04", title: "الأبواب والبوابات والدرابزين والحواجز الواقية", sections: "SBC 1010, 1014, 1015", count: 3, done: false, files: ["Section 1010 Doors Gates Turnstiles.pdf", "Handrails.pdf", "Guards.pdf"] },
-    { num: "05", title: "ممرات الخروج المحمية والمخارج الأفقية والإنقاذ", sections: "SBC 1024, 1026, 1031, 3104", count: 4, done: false, files: ["Section 1024 Exit Passageways.pdf", "Section 1026 Horizontal Exits.pdf", "Pedestrian Walkway and Tunnels.pdf", "Section_1031_Emergency Escape and Rescue.pdf"] },
-    { num: "06", title: "الإضاءة ولوحات الخروج والعلامات المضيئة والعنونة", sections: "SBC 1008, 1013, 1025, 505", count: 4, done: false, files: ["MEANS OF EGRESS ILLUMINATION.pdf", "Section 1013 Exit Signs.pdf", "LUMINOUS EGRESS PATH MARKINGS.pdf", "Address Identification.pdf"] },
-    { num: "07", title: "إتاحة ذوي الإعاقة والميزانين والأسطح المأهولة", sections: "SBC 1009, 505, 503.1.4", count: 3, done: false, files: ["Accessible Means of Egress.pdf", "MEZZANINE.pdf", "Occupied External Roofs.pdf"] },
-    { num: "08", title: "المصاعد وردهاتها والسلالم المتحركة", sections: "SBC Ch. 30 (3002–3008)", count: 6, done: false, files: ["Elevators General Requirements.pdf", "Elevator Types Required.pdf", "ELEVATOR LOBBIES AND HOISTWAY OPENING PROTECTION.pdf", "Fire Service Access Elevator Requirements.pdf", "Occupant Evacuation Elevator.pdf", "Escalator and Moving Walks Shaft Enclosure Req..pdf"] },
-    { num: "09", title: "الارتفاعات والمساحات المسموحة والمباني العالية", sections: "SBC Ch. 4 & 5 (403, 504, 506)", count: 4, done: false, files: ["Allowable Building Area.pdf", "Allowable Building Height.pdf", "Allowable Number of Stories Above Grade Plane.pdf", "High Rise and Building Heights.pdf"] },
-    { num: "10", title: "أنظمة الإطفاء الرأسية (الأعمدة الصاعدة Standpipes)", sections: "SBC 801 Sec. 905.3", count: 1, done: false, files: ["When Standpipe is required.pdf"] }
-  ]
+  {
+    "num": "01",
+    "title": "الأسس وحمل الإشغال وعدد وعرض وتباعد المخارج",
+    "shortTitle": "01 • الإشغال وعدد وعرض المخارج",
+    "sections": "SBC 201 & 801 Sec. 1001–1007",
+    "occupancies": "جميع فئات الإشغالات (A, B, E, F, H, I, M, R, S, U) مع قيود خاصة على H و I-2 وغرف الغلايات والتبريد والكهرباء",
+    "whenToUse": "في بداية تصميم أي مبنى لتحديد مكونات مسار الهروب، وحساب حمل الإشغال التصميمي، وتقرير عدد المخارج وعروض السلالم والأبواب ومسافات التباعد بينها.",
+    "files": [
+      {
+        "name": "Means of Egress Components.pdf",
+        "sec": "SBC 1001–1032",
+        "summary": "تقسيم مسار الهروب إلى 3 عناصر: الوصول للمخرج (1016–1021)، المخرج المحمي (1022–1027)، والتفريغ للشارع (1028–1031)، وإضافة Sec. 1032 للصيانة في SBC 801."
+      },
+      {
+        "name": "OCCUPANT LOAD CALCULATION.pdf",
+        "sec": "SBC 1004 / 1005.6",
+        "summary": "حساب حمل الإشغال بجدول 1004.5، المقاعد الثابتة والكراسي المتحركة (×2)، البنش (÷0.45م)، الكنب (÷0.60م)، جمع الميزانين والفراغات المتداخلة، وحمل التقاء الأدوار بالسلم (1005.6)، ولوحة الإشغال التجميعي (1004.9)."
+      },
+      {
+        "name": "Means of Egress Width.pdf",
+        "sec": "SBC 1005",
+        "summary": "حساب العرض الصافي بمعامل 7.6 مم للسلالم و5.1 مم للأبواب والممرات (وتخفيضهما لـ 5.1 و3.8 مم بوجود رش آلي + إنذار صوتي عدا H وI-2)، وقاعدة بقاء 50% من السعة عند فقد أحد المخارج."
+      },
+      {
+        "name": "Number Of Exits.pdf",
+        "sec": "SBC 1006",
+        "summary": "عدد المخارج للفراغات (Table 1006.2.1: 1 حتى الحد، 2 حتى 500، 3 حتى 1000، 4 لأكثر من 1000)، 6 حالات استخدام خاص (غلايات، تبريد، غرف مبردة، كهرباء، رامبات، R-3/4)، وشروط المخرج الواحد للأدوار (1006.3.4) والمختلط."
+      },
+      {
+        "name": "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf",
+        "sec": "SBC 1007",
+        "summary": "مسافة التباعد الدنيا بين المخرجين >= 1/2 القطر المائل (أو 1/3 القطر مع الرش الشامل)، واعتبار السلالم المتشابكة (Scissor Stairs) مخرجاً واحداً فقط."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T1-01",
+        "file": "Means of Egress Components.pdf",
+        "sub": "العناصر الثلاثة لمسار الهروب وتطابق الكود",
+        "occ": "جميع الإشغالات (A–U)",
+        "trigger": "عند تصميم أو مراجعة أي منظومة إخلاء من أبعد نقطة بالمبنى حتى الطريق العام",
+        "req": "يتكون المسار من: (1) Exit Access غير محمي بمقاومة حريق، (2) Exit محمي بعناصر مقاومة للحريق (سلالم/منحدرات/ممرات خروج/مخارج أفقية/أبواب خارجية)، (3) Exit Discharge حتى الطريق العام.",
+        "eq": "Sec. 1001–1031 متطابقة في SBC 201 & 801 + Sec. 1032 للصيانة في SBC 801",
+        "exc": "الأبواب التي تفتح مباشرة للخارج عند منسوب الخروج لا تحتاج حواجز مقاومة للحريق؛ والمخرج الأفقي ينقل لمنطقة لجوء محمية.",
+        "code": "SBC 201 & 801 Sec. 1001–1032"
+      },
+      {
+        "id": "T1-02",
+        "file": "OCCUPANT LOAD CALCULATION.pdf",
+        "sub": "حمل الإشغال بدون مقاعد ثابتة والمقاعد الثابتة",
+        "occ": "جميع الإشغالات (Table 1004.5 & Sec. 1004.6)",
+        "trigger": "لتحديد العدد التصميمي للأشخاص بكل فراغ، أو قاعة مقاعد ثابتة، أو ميزانين، أو التقاء أدوار",
+        "req": "تُقسم المساحة (صافي أو إجمالي) على معامل OLF؛ وتُجمع الفراغات المتداخلة والميزانين مع الدور الأرضي. أما الأدوار المتكررة فلا تُجمع بل يُصمم السلم على أعلى دور، إلا عند التقاء أدوار فوق وتحت نقطة الخروج.",
+        "eq": "OL = ROUNDUP(Area/OLF,0) + Seats + (Wheelchairs×2) + Bench/0.45 + Booth/0.60\nالتقاء الأدوار: OL_conv = Max_Above + Max_Below (Sec. 1005.6)",
+        "exc": "اعتماد العدد الفعلي الأقل بموافقة الدفاع المدني (1004.5)؛ إعفاء ساحات الخدمة وR-3/R-2 الفردية (1004.7)؛ إمكانية زيادة الكثافة حتى 1 شخص/0.65م² بتحقيق كافة شروط الكود (1004.5.1).",
+        "code": "SBC 201 & 801 Sec. 1004.2–1004.9, 1005.6"
+      },
+      {
+        "id": "T1-03",
+        "file": "Means of Egress Width.pdf",
+        "sub": "حساب عرض السلالم والأبواب والممرات وقاعدة الـ 50%",
+        "occ": "جميع الإشغالات (تخفيض المعامل يستثني H و I-2)",
+        "trigger": "عند تحديد العروض الصافية للسلالم والأبواب والممرات والرامبات",
+        "req": "يُؤخذ الأكبر من القيمة المحسوبة بالمعادلة أو الحد الأدنى للعنصر، ولا يتناقص العرض في اتجاه الخروج. وعند تعدد المخارج يجب ألا يقل العرض المتبقي عند فقد أحدها عن 50% من السعة المطلوبة.",
+        "eq": "W_stair = OL × 7.62 mm (أو 5.08 mm مع رش + صوتي)\nW_other = OL × 5.08 mm (أو 3.81 mm مع رش + صوتي)\nMin Stair = 1100mm (900mm إذا OL<50) | Min Door = 800mm",
+        "exc": "تخفيض المعاملات (5.08 / 3.81 مم) عند وجود رش آلي شامل + إنذار صوتي EVACS (باستثناء H و I-2). البروز المسموح للباب المفتوح <= 175 مم.",
+        "code": "SBC 201 & 801 Sec. 1005.2–1005.7"
+      },
+      {
+        "id": "T1-04",
+        "file": "Number Of Exits.pdf",
+        "sub": "عدد المخارج للفراغات والأدوار والحالات الخاصة الست",
+        "occ": "جميع الإشغالات + غلايات، تبريد، غرف مبردة، كهرباء، رامبات، R-3/4",
+        "trigger": "لتقرير هل يكفي مخرج واحد أم يلزم 2 أو 3 أو 4 مخارج لكل فراغ أو طابق",
+        "req": "يلزم مخرجان عند تجاوز حد الإشغال أو المسار المشترك بجدول 1006.2.1 (49 لـ A,B,E,F,M / 29 لـ S / 20 لـ R-2,3,4 / 10 لـ I,R-1,H-4,5 / 3 لـ H-1..3)، 3 مخارج لـ (501–1000)، و4 مخارج لأكثر من 1000. وتُفرض مخارج مزدوجة للغلايات (>45م² و>422,000 kJ) وماكينات التبريد والغرف المبردة (>100م²).",
+        "eq": "مختلط الإشغال بمخرج واحد: Sum(OL_i / Max_i) + (Units / 4) <= 1.0 (Sec. 1006.3.4.1)",
+        "exc": "الردهات Foyers/Lobbies (يُحسب عدد مخارجها على حملها فقط وسعتها على التراكمي)، أجنحة الرعاية I-2 (407.4)، غرف الميكانيكا غير المأهولة، وحالات المخرج الواحد للدور بجداول 1006.3.4(1)-(2).",
+        "code": "SBC 201 & 801 Sec. 1006.2–1006.3.4.1"
+      },
+      {
+        "id": "T1-05",
+        "file": "EXIT AND EXIT ACCESS DOORWAY CONFIGURATION.pdf",
+        "sub": "تباعد المخارج (Remoteness) والسلالم المتشابكة",
+        "occ": "جميع الإشغالات التي تتطلب مخرجين فأكثر",
+        "trigger": "عند وجود مخرجين أو أكثر أو سلمي وصول مفتوحين",
+        "req": "أدنى مسافة مستقيمة بين المخرجين >= نصف القطر المائل الأكبر (D/2). وتُحسب السلالم المتشابكة (Scissor Stairs) كمخرج واحد. وتستمر مسافة التباعد بكامل ارتفاع سلالم الوصول المفتوحة.",
+        "eq": "بدون رش شامل: Sep >= 0.50 × D | مع رش شامل: Sep >= 0.333 × D",
+        "exc": "1) قياس التباعد على أقصر خط انتقال داخل ممر محمي 1 ساعة يربط السلالم (1007.1.1 Ex.1). 2) تخفيض التباعد لثلث القطر (D/3) في المباني المرشوشة بالكامل.",
+        "code": "SBC 201 & 801 Sec. 1007.1–1007.1.3.1"
+      }
+    ]
+  },
+  {
+    "num": "02",
+    "title": "مسار الوصول للمخرج ومسافات الانتقال والممرات والشرفات",
+    "shortTitle": "02 • مسار الوصول والممرات",
+    "sections": "SBC 201 & 801 Sec. 1016–1021",
+    "occupancies": "جميع فئات الإشغالات (A, B, E, F, H, I, M, R, S, U) مع اشتراطات خاصة لـ B و M في الممرات الداخلية",
+    "whenToUse": "عند فحص مسار الحركة من أبعد نقطة في الغرفة حتى باب السلم المحمي، والتحقق من المرور عبر الفراغات المتداخلة، وأقصى مسافة انتقال، وعرض ومقاومة الممرات والنهايات المسدودة والشرفات.",
+    "files": [
+      {
+        "name": "Section_1016_Exit_Access.pdf",
+        "sec": "SBC 1016",
+        "summary": "قواعد الخروج عبر الفراغات المتداخلة، حظر المرور عبر Group H أو الغرف القابلة للقفل أو المطابخ والمخازن وغرف النوم، وضوابط تعدد المستأجرين (<10%)."
+      },
+      {
+        "name": "Section_1017_Exit_Access_Travel_Distance.pdf",
+        "sec": "SBC 1017",
+        "summary": "الحد الأقصى لمسافة الانتقال حسب الإشغال والرش الآلي (Table 1017.2)، طريقة القياس المتعامد، القياس على السلالم المفتوحة والأتريوم (60م)، وزيادات F-1/S-1 (120م)."
+      },
+      {
+        "name": "Section_1018_Aisles.pdf",
+        "sec": "SBC 1018",
+        "summary": "عروض الممرات الرئيسية Aisles وممرات الوصول Aisle Accessways بين الأرفف والمكاتب في B و M (750 مم أدنى عرض، ومسار مشترك 9م أو 23م)."
+      },
+      {
+        "name": "Section_1020_Corridors.pdf",
+        "sec": "SBC 1020",
+        "summary": "مقاومة الحريق للممرات (Table 1020.2)، العرض الأدنى (1100مم عام / 1800مم تعليمي / 2400مم مستشفيات)، النهايات المغلقة Dead Ends (6م أو 15م مرشوش)، وحركة الهواء."
+      },
+      {
+        "name": "Section 1021 Egress Balconies.pdf",
+        "sec": "SBC 1021",
+        "summary": "اشتراطات شرفات الخروج الخارجية: انفتاح 50% على الجانب الطويل، تباعد 3م عن حدود الأرض وأجزاء المبنى، وحكم الفصل المقاوم للحريق."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T2-01",
+        "file": "Section_1016_Exit_Access.pdf",
+        "sub": "المرور عبر الفراغات المتداخلة وتعدد المستأجرين",
+        "occ": "جميع الإشغالات (M, B, H, F, S, R, I)",
+        "trigger": "عند مرور الهروب من غرفة عبر غرفة مجاورة أو عبر لوبي مصاعد أو بين وحدات مؤجرة",
+        "req": "يُمنع المرور عبر غرف قابلة للقفل، أو عبر Group H، أو عبر المطابخ والمخازن وغرف النوم/الحمامات. وعند وجود لوبي مصاعد مغلق (3006) ومخرجين فأكثر، يجب الوصول لمخرج واحد على الأقل دون المرور باللوبي.",
+        "eq": "المساحة الخدمية Accessory <= 10% من المساحة الكلية | المستأجر الصغير < 10% من الكبير",
+        "exc": "1) المرور في H/S/F لغرف بنفس الخطورة أو أقل. 2) مطبخ داخل نفس الوحدة السكنية. 3) مخزن محل تجاري Group M بشرط ممر محدد >= 1100مم، عدم القفل، وبحد أقصى 50% من الإخلاء. 4) مستأجر صغير (<10%) يمر عبر مستأجر كبير.",
+        "code": "SBC 201 & 801 Sec. 1016.1–1016.2.1"
+      },
+      {
+        "id": "T2-02",
+        "file": "Section_1017_Exit_Access_Travel_Distance.pdf",
+        "sub": "الحد الأقصى لمسافة الانتقال وطريقة القياس",
+        "occ": "جميع الإشغالات (Table 1017.2)",
+        "trigger": "لقياس المسافة من أبعد نقطة مشغولة إلى مدخل أقرب مخرج محمي",
+        "req": "تُقاس المسافة بالمسار الفعلي المتعامد (أو على بعد 300مم من الأثاث) شاملة طول السلالم والرامبات المفتوحة. الحدود: (A,E,F-1,I-1,M,R,S-1: 60م غير مرشوش / 75م مرشوش)، (B: 60م / 90م)، (F-2,S-2,U: 90م / 120م)، (I-2,I-3: 60م مرشوش فقط).",
+        "eq": "F-1 & S-1 دور واحد + ارتفاع >= 7300مم + رش شامل -> 120 م (Sec. 1017.2.2)\nداخل الأتريوم فوق الأرضي <= 60 م (Sec. 1017.3.2.3)",
+        "exc": "1) زيادة حتى 30م إضافية عند المرور عبر شرفة خروج خارجية مطابقة لـ 1021. 2) مواقف السيارات المفتوحة تُقاس حتى أول درجة بسلم الوصول. 3) مدرجات التجمع المفتوحة أو المحمية من الدخان (1030.7).",
+        "code": "SBC 201 & 801 Sec. 1017.1–1017.3.2.3 & Table 1017.2"
+      },
+      {
+        "id": "T2-03",
+        "file": "Section_1018_Aisles.pdf",
+        "sub": "الممرات الرئيسية وممرات الوصول بين الأثاث والأرفف",
+        "occ": "التجاري (M)، الإداري (B)، وباقي الإشغالات (عدا التجمعات 1030)",
+        "trigger": "عند وجود أرفف عرض بالمحلات أو مكاتب مفتوحة أو تجهيزات",
+        "req": "يُحسب عرض Aisle بنفس قواعد الممرات Corridors (1005.1 و 1020.2). وفي منصات العرض التجارية (Merchandise Pads) يلزم ممر وصول Aisle Accessway بعرض >= 750مم وأقصى مسار مشترك 9م.",
+        "eq": "W_aisle = MAX(OL × 5.08 أو 3.81 mm, Table 1020.2) | Aisle Accessway >= 750 mm",
+        "exc": "1) الممرات غير العامة التي تخدم < 50 شخصاً وغير مطلوبة لذوي الإعاقة يُكتفى بعرض 700 مم. 2) إذا خدم ممر الوصول في Group M <= 50 شخصاً يمتد المسار المشترك إلى 23 م.",
+        "code": "SBC 201 & 801 Sec. 1018.1–1018.5"
+      },
+      {
+        "id": "T2-04",
+        "file": "Section_1020_Corridors.pdf",
+        "sub": "مقاومة الحريق للممرات وعروضها والنهايات المسدودة Dead Ends",
+        "occ": "جميع الإشغالات (A, B, E, F, H, I, M, R, S, U)",
+        "trigger": "عند وجود ممرات مغلقة تربط الغرف بالمخارج",
+        "req": "مقاومة حريق 1 ساعة (لـ A,B,E,F,M,S,U >30 شخصاً بدون رش، و0 ساعة مع الرش؛ ولـ R >10 أشخاص 0.5/1 ساعة؛ و1 ساعة لـ H و I-1/3). العرض الأدنى: 1100مم (عام)، 900مم (OL<50 أو داخل شقة)، 600مم (معدات)، 1800مم (تعليمي >=100 أو إسعافي)، 2400مم (مستشفيات I-2). النهاية المسدودة <= 6م.",
+        "eq": "Dead End عادي <= 6.0 m | مرشوش (B,E,F,I-1,M,R-1,2,4,S,U) <= 15.0 m\nأو غير محدود الطول إذا كان: Length < 2.5 × Least_Width",
+        "exc": "1) المدارس E ذات الأبواب المباشرة للخارج بالدور الأرضي تعفى من مقاومة الممر. 2) الممرات داخل الشقة/الغرفة السكنية. 3) المواقف المفتوحة ومكاتب B ذات المخرج الواحد. 4) I-2 غير الناقلة للأسرة لا تلزم 2400مم. 5) حظر استخدام الممر كمجرى هواء تكييف إلا بـ 4 استثناءات.",
+        "code": "SBC 201 & 801 Sec. 1020.1–1020.7"
+      },
+      {
+        "id": "T2-05",
+        "file": "Section 1021 Egress Balconies.pdf",
+        "sub": "شرفات الخروج الخارجية (Egress Balconies)",
+        "occ": "جميع الإشغالات (شائعة في الفنادق والشقق والمدارس)",
+        "trigger": "عند استخدام شرفة خارجية مفتوحة للوصول إلى سلالم الهروب",
+        "req": "تخضع لشروط الممرات (عرض، سعة، ارتفاع، نهايات مسدودة)، ويجب أن يكون جانبها الطويل مفتوحاً بنسبة >= 50% لمنع تراكم الدخان، وتبتعد >= 3000 مم عن حدود الأرض أو أجزاء المبنى الأخرى.",
+        "eq": "نسبة الانفتاح >= 50% | مسافة الفصل الخارجية >= 3000 mm",
+        "exc": "لا يُشترط فصل الشرفة عن المبنى بجدران وفتحات مقاومة للحريق إذا كانت مخدومة بسلمين على الأقل ولا توجد نهاية مسدودة تُجبر الهارب على المرور أمام فتحة غير محمية.",
+        "code": "SBC 201 & 801 Sec. 1021.1–1021.4"
+      }
+    ]
+  },
+  {
+    "num": "03",
+    "title": "السلالم والمنحدرات وفروق المناسيب والارتفاعات الصافية",
+    "shortTitle": "03 • السلالم والمنحدرات والارتفاع",
+    "sections": "SBC 201 & 801 Sec. 1003, 1011, 1012, 1019, 1023",
+    "occupancies": "جميع فئات الإشغالات (A–U) مع ضوابط خاصة لعزل السلالم في I-2 و I-3 والمباني العالية (>23م) وتحت الأرض (>9م)",
+    "whenToUse": "عند تصميم أبعاد درجات السلالم وبسطاتها، ميول المنحدرات وحماية حوافها، فروق المناسيب الصغيرة (<300مم)، الارتفاعات الصافية للأسقف، وتحديد متى يكون السلم مفتوحاً أو معزولاً أو مضغوطاً ضد الدخان.",
+    "files": [
+      {
+        "name": "Section 1011 Stairways.pdf",
+        "sec": "SBC 1011",
+        "summary": "أبعاد القائمة (100–175مم) والنائمة (>=275مم)، التفاوت (10مم)، البسطات، ارتفاع القلبة (<=3600مم)، السلالم المنحنية والحلزونية والمتعاقبة والبحارية والوصول للسطح."
+      },
+      {
+        "name": "Section 1012 Ramps.pdf",
+        "sec": "SBC 1012",
+        "summary": "أقصى ميل طولي (1:12 للهروب و1:8 لغيره)، الميل العرضي (1:48)، أقصى ارتفاع للقلبة (750مم)، العرض (>=900مم بين الدرابزين و>=1100مم للممرات)، البسطات (1500مم)، وحماية الحواف."
+      },
+      {
+        "name": "Section_1019_Exit_Access_Stairways_and_Ramps.pdf",
+        "sec": "SBC 1019",
+        "summary": "متى يُسمح بترك سلالم ومنحدرات الوصول مفتوحة بدون عزل (بين مستويين بنفس الدور، ربط دورين فقط، شقق حتى 4 أدوار، رش + ستائر دخان، أتريوم، مواقف مفتوحة)."
+      },
+      {
+        "name": "Section 1023 Interior Exit Stairways and Ramps.pdf",
+        "sec": "SBC 1023",
+        "summary": "عزل سلالم الخروج الداخلية (1 ساعة لأقل من 4 أدوار، 2 ساعة لـ 4 أدوار فأكثر)، منع الاختراقات والفتحات غير المسموحة، لافتات الأدوار، وحاجز الدور الأرضي، والسلالم المحمية من الدخان."
+      },
+      {
+        "name": "Elevation Change.pdf",
+        "sec": "SBC 1003.5",
+        "summary": "معالجة فروق المنسوب أقل من 300 مم بسطح مائل أو منحدر (وعند <=150مم تمييز لوني أو درابزين) مع 3 استثناءات للدرجة الواحدة أو الدرجتين."
+      },
+      {
+        "name": "Means of Egress Allowable Height.pdf",
+        "sec": "SBC 1003.2–1003.3",
+        "summary": "الحد الأدنى لارتفاع الأسقف (2250/2300مم للممرات والغرف، 2100مم للحمامات والمطابخ والشقق، 2000مم للسلالم والأبواب والرامبات والميزانين، 2150مم للمواقف) وحدود البروزات."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T3-01",
+        "file": "Section 1011 Stairways.pdf",
+        "sub": "أبعاد الدرجات والبسطات والسلالم الخاصة والوصول للسطح",
+        "occ": "جميع الإشغالات (واستثناءات R-2 / R-3 / I-3 / المسارح)",
+        "trigger": "عند تصميم أي سلم هروب أو سلم داخلي أو سلم وصول للسطح",
+        "req": "القائمة (100–175 مم)، النائمة (>= 275 مم)، أقصى تفاوت بالقلبة 10 مم، بروز الأنف <= 32 مم، أقصى ارتفاع للقلبة 3600 مم، خلوص الرأس >= 2100 مم (2000 مم للحلزوني). وفي المباني >= 4 أدوار فوق الأرض يمتد سلم واحد للسطح (أو وجود معدات مصاعد بالسطح).",
+        "eq": "Riser: 100–175 mm | Tread >= 275 mm | Max Flight Rise <= 3600 mm | Headroom >= 2100 mm",
+        "exc": "1) السكني R-3 وداخل وحدات R-2: القائمة <= 200 مم والنائمة >= 250 مم. 2) السلالم الحلزونية (<=23م² و<=5 أشخاص، عرض >=650مم، قائمة <=240مم). 3) السلم البحاري والمتعاقب للميزانين الفني والسطح غير المأهول (فتحة السطح >= 1.5م² وبُعد >= 600مم).",
+        "code": "SBC 201 & 801 Sec. 1011.1–1011.16"
+      },
+      {
+        "id": "T3-02",
+        "file": "Section 1012 Ramps.pdf",
+        "sub": "ميول وأبعاد وبسطات وحماية حواف المنحدرات (Ramps)",
+        "occ": "جميع الإشغالات",
+        "trigger": "عند استخدام منحدر في مسار الهروب أو مسار الإتاحة",
+        "req": "الميل الطولي للهروب <= 1:12 (8.33%)، والميل العرضي <= 1:48 (2%)، أقصى ارتفاع للقلبة 750 مم، العرض الصافي بين الدرابزين >= 900 مم (ولا يقل عن الممر 1100مم)، طول البسطة >= 1500 مم، درابزين على الجانبين إذا زاد الارتفاع عن 150 مم، وحماية حواف (Curb >=100مم أو امتداد 300مم).",
+        "eq": "Slope <= 1:12 (8.33%) | Max Rise/Run <= 750 mm | Landing >= 1500 × 1500 mm",
+        "exc": "1) منحدرات المشاة غير الهروب <= 1:8 (12.5%). 2) طول البسطة 1200مم إذا لم يكن مسار إتاحة، و900مم داخل وحدات R-2/R-3 غير المتاحة. 3) منحدرات السيارات بالمواقف غير المتاحة تعفى من 1012.3–1012.10.",
+        "code": "SBC 201 & 801 Sec. 1012.1–1012.10.2"
+      },
+      {
+        "id": "T3-03",
+        "file": "Section_1019_Exit_Access_Stairways_and_Ramps.pdf",
+        "sub": "متى يُسمح بسلالم ومنحدرات الوصول المفتوحة (بدون عزل)",
+        "occ": "جميع الإشغالات (I-2 و I-3 تُلزم بالعزل دائماً)",
+        "trigger": "عند تصميم سلم داخلي مفتوح يربط بين مستويات أو طوابق قبل الوصول للمخرج",
+        "req": "الأصل عزل أي فتحة تربط طابقين فأكثر ببئر مقاوم للحريق (Sec. 713)، ويُستثنى: المستويات داخل نفس الطابق/الميزانين، ربط طابقين متجاورين فقط غير مفتوحين لغيرهما، داخل الوحدة السكنية حتى 4 أدوار، أو مبنى مرشوش بفتحة <= ضعف مساحة السلم مع ستارة دخان 450مم ورشاشات متقاربة (حتى 4 أدوار عدا B و M).",
+        "eq": "مساحة الفتحة المفتوحة (Ex.4) <= 2 × المساحة الأفقية للسلم | ستارة دخان >= 450 mm",
+        "exc": "الأتريوم (404)، المواقف المفتوحة، شرفات المسارح، والسلالم الخارجية بين الأسطح المأهولة. في I-2 و I-3 يُمنع فتح السلالم بين الطوابق (إلا استثناءات 408 في I-3).",
+        "code": "SBC 201 & 801 Sec. 1019.1–1019.4"
+      },
+      {
+        "id": "T3-04",
+        "file": "Section 1023 Interior Exit Stairways and Ramps.pdf",
+        "sub": "عزل سلالم الخروج الداخلية وحمايتها من الدخان ولافتاتها",
+        "occ": "جميع الإشغالات (إلزامية الدخان للمباني >23م وتحت الأرض >9م)",
+        "trigger": "عند تصميم سلالم ومنحدرات الخروج الداخلية المحمية",
+        "req": "مقاومة حريق >= 2 ساعة لربط 4 أدوار فأكثر (تشمل الأقبية ولا تشمل الميزانين)، و>= 1 ساعة لأقل من 4 أدوار. تنتهي للخارج مباشرة أو عبر Exit Passageway. يُمنع فتح المخازن والحمامات والمصاعد عليها. يلزم حاجز مادي بالدور الأرضي لمنع النزول للقبو، ولوحات تعريف عند ربط >3 أدوار، وحماية من الدخان (909.20) للمباني >23م أو >9م تحت الأرض.",
+        "eq": ">= 4 Stories -> 2-hr Fire Rating | < 4 Stories -> 1-hr Fire Rating | Sign Height = 1500 mm",
+        "exc": "استثناء الزجاج في I-3 (408.3.8)، السلالم داخل أتريوم معزول (404.6)، وتخفيض العزل العلوي في المنشآت المقسمة أفقياً (510.2).",
+        "code": "SBC 201 & 801 Sec. 1023.1–1023.13"
+      },
+      {
+        "id": "T3-05",
+        "file": "Elevation Change.pdf",
+        "sub": "معالجة فروق المنسوب الصغيرة (أقل من 300 مم)",
+        "occ": "جميع الإشغالات (في I-2 إلزامي المنحدر دائماً)",
+        "trigger": "عند وجود فرق منسوب < 300 مم في أي مسار حركة أو هروب",
+        "req": "يُمنع عمل درجة مفردة أو درجتين ويلزم عمل سطح مائل؛ فإذا زاد الميل عن 1:20 (5%) يُطبق عليه كامل شروط الرامب (1012). وإذا كان الفرق <= 150 مم يُزود بدرابزين أو تشطيب بلون متباين.",
+        "eq": "Diff < 300 mm -> Sloped Surface | Slope > 5% -> Sec. 1012 Ramp | Diff <= 150 mm -> Contrast/Handrail",
+        "exc": "1) درجة واحدة (<=175مم) عند الأبواب الخارجية غير المتاحة لـ F,H,R-2,R-3,S,U. 2) درجة أو درجتان بعمق >=325مم ودرابزين ضمن 750مم في المسارات غير المتاحة. 3) درجات ممرات مقاعد المسارح (1029.13).",
+        "code": "SBC 201 & 801 Sec. 1003.5"
+      },
+      {
+        "id": "T3-06",
+        "file": "Means of Egress Allowable Height.pdf",
+        "sub": "الارتفاعات الصافية للأسقف وحدود البروزات في مسار الهروب",
+        "occ": "جميع الإشغالات",
+        "trigger": "عند مراجعة ارتفاعات الأسقف الساقطة، الكمرات، الأبواب، والمواقف",
+        "req": "أدنى ارتفاع سقف: 2250/2300 مم للممرات والفراغات المشغولة، 2100 مم للحمامات والمطابخ والمخازن والشقق، 2000 مم للسلالم والأبواب والمنحدرات والميزانين، و2150 مم لمسارات المشاة والسيارات بالمواقف. البروزات بين 700 و2000 مم لا تتجاوز 100 مم.",
+        "eq": "Ceiling >= 2250 mm | Doors/Stairs/Ramps/Mezzanine >= 2000 mm | Projections <= 100 mm",
+        "exc": "1) الأسقف المائلة: نصف المساحة يحقق الارتفاع المطلوب وما يقل عن 1500مم يُستبعد. 2) كمرات المنازل المتباعدة >=1200مم تسقط حتى 150مم. 3) الدرابزين يبرز حتى 115مم.",
+        "code": "SBC 201 & 801 Sec. 1003.2–1003.3.3 & 1208.2"
+      }
+    ]
+  },
+  {
+    "num": "04",
+    "title": "الأبواب والبوابات والدرابزين والحواجز الواقية من السقوط",
+    "shortTitle": "04 • الأبواب والدرابزين والحواجز",
+    "sections": "SBC 201 & 801 Sec. 1010, 1014, 1015",
+    "occupancies": "جميع فئات الإشغالات (A–U) مع اشتراطات خاصة لـ Group A و E و H و I و R والملاعب",
+    "whenToUse": "عند تحديد مواصفات أبواب الهروب، اتجاه الفتح، أقفال الذعر Panic Hardware، الأبواب الكهربائية والمنزلقة والدوارة، ارتفاع وأبعاد الدرابزين، والحواجز الواقية من السقوط.",
+    "files": [
+      {
+        "name": "Section 1010 Doors Gates Turnstiles.pdf",
+        "sec": "SBC 1010",
+        "summary": "عرض الباب (>=800مم صافي و<=1200مم للضلفة، 1000مم لأسرة I-2)، الفتح للخارج (>=50 شخصاً أو H)، قوة الفتح، أقفال الذعر، الأقفال الكهربائية وتأخير الخروج (15/30 ثانية)، والأبواب الدوارة والمنزلقة."
+      },
+      {
+        "name": "Handrails.pdf",
+        "sec": "SBC 1014",
+        "summary": "ارتفاع الدرابزين (850–950مم)، مقاطع الإمساك Type I (قطر 32–50مم) وType II، الاستمرارية، الامتداد (300مم)، الخلوص من الجدار (38مم)، والدرابزين الوسطي (كل 750مم)."
+      },
+      {
+        "name": "Guards.pdf",
+        "sec": "SBC 1015",
+        "summary": "وجوب الحاجز عند فرق منسوب > 750 مم، الارتفاع (>= 1100 مم)، قاعدة كرة الـ 100 مم (و150مم لمثلث الدرج)، زجاج الحواجز المصفح (>=6.5مم)، وحماية النوافذ ومعدات السطح."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T4-01",
+        "file": "Section 1010 Doors Gates Turnstiles.pdf",
+        "sub": "أبعاد واتجاه فتح وقوى وأقفال أبواب الهروب",
+        "occ": "جميع الإشغالات (شروط مشددة لـ A, E, H, I-1, I-2, I-3)",
+        "trigger": "عند اختيار وتوصيف أي باب أو بوابة أو بوابة دوارة في مسار الهروب",
+        "req": "عرض صافي >= 800 مم (1000 مم في I-2 للأسرة) وأقصى ضلفة 1200 مم، ارتفاع >= 2000 مم. يفتح في اتجاه الهروب لـ >= 50 شخصاً أو Group H. الفتح بحركة واحدة دون مفتاح (ارتفاع المقبض 850–1200 مم). إلزام Panic Hardware في H و (A أو E >= 50 شخصاً) وغرف التبريد (>100م²) والكهرباء (>=800A وعلى بعد <7.5م).",
+        "eq": "Clear Width >= 800 mm (1000 mm I-2) | Leaf <= 1200 mm | Unlatch <= 67 N | Push <= 22 N (133 N Rated)",
+        "exc": "1) قفل الباب الرئيسي بالمفتاح من الداخل في A (<=300) و B,F,M,S بشرط لوحة تحذير. 2) الأقفال الكهربائية بتحرير المقبض أو الحساس (PUSH TO EXIT) أو تأخير الخروج 15/30 ثانية (1010.2.11–14). 3) الأبواب الدوارة (سعة قصوى 50 شخصاً و50% مع باب مفصلي مجاور خلال 3م).",
+        "code": "SBC 201 & 801 Sec. 1010.1–1010.5.4"
+      },
+      {
+        "id": "T4-02",
+        "file": "Handrails.pdf",
+        "sub": "تصميم وأبعاد وامتداد الدرابزين (Handrails)",
+        "occ": "جميع الإشغالات",
+        "trigger": "على جانبي جميع السلالم والمنحدرات ذات الارتفاع > 150 مم والممرات المدرجة",
+        "req": "الارتفاع بين 850 و 950 مم من أنف الدرجة أو سطح المنحدر (750–850 مم للسلم البحاري والمتعاقب). المقطع الدائري بقطر 32–50 مم. خلوص عن الجدار >= 38 مم وبروز <= 115 مم. امتداد أفقي >= 300 مم عند الأعلى والأسفل، ودرابزين وسطي بحيث لا يبعد أي جزء من العرض عن 750 مم من درابزين.",
+        "eq": "Height: 850–950 mm | Diameter: 32–50 mm | Wall Clearance >= 38 mm | Extension >= 300 mm",
+        "exc": "1) داخل الوحدات السكنية والسلالم الحلزونية يكفي درابزين من جهة واحدة. 2) درجة واحدة عند مدخل R-3 أو <= 3 درجات داخل وحدات R-2/R-3 لا تلزم درابزيناً. 3) فواصل 550–900 مم كل <= 5 صفوف في درابزين ممرات المسارح.",
+        "code": "SBC 201 & 801 Sec. 1014.1–1014.9 & 1030.16"
+      },
+      {
+        "id": "T4-03",
+        "file": "Guards.pdf",
+        "sub": "الحواجز الواقية من السقوط (Guards) وفتحاتها والزجاج",
+        "occ": "جميع الإشغالات (ضوابط خاصة للسكني R-2/R-3 والمعدات على السطح)",
+        "trigger": "عند وجود حافة مفتوحة بارتفاع > 750 مم عن المنسوب المجاور خلال مسافة أفقية 900 مم",
+        "req": "الارتفاع الأدنى 1100 مم، والفتحات لا تسمح بمرور كرة قطرها 100 مم (و150 مم للمثلث أسفل الدرج). الزجاج يجب أن يكون Laminated مقوى بسماكة >= 6.5 مم ويتحمل 0.75 kN/m و 0.9 kN. نوافذ R-2/R-3 التي جلساتها < 900 مم وارتفاعها الخارجي > 1800 مم تلزم أجهزة منع السقوط.",
+        "eq": "Drop > 750 mm -> Guard >= 1100 mm | Sphere <= 100 mm | Roof Hatch/Equip < 3m from edge -> Guard",
+        "exc": "1) أرصفة التحميل، واجهة المسارح للجمهور، وحفر صيانة السيارات. 2) ارتفاع الحاجز 850–950 مم داخل وحدات R-2/R-3 والمباني السكنية حتى 3 أدوار. 3) فتحات <= 525 مم في مناطق المعدات و F,H,S,I-3 غير العامة. 4) الاستعاضة بنقاط ربط أحزمة الأمان ANSI Z359.1 لصيانة السطح.",
+        "code": "SBC 201 & 801 Sec. 1015.1–1015.8 & 2407"
+      }
+    ]
+  },
+  {
+    "num": "05",
+    "title": "ممرات الخروج المحمية والمخارج الأفقية وكباري المشاة وفتحات الإنقاذ",
+    "shortTitle": "05 • ممرات الخروج والمخارج الأفقية",
+    "sections": "SBC 201 & 801 Sec. 1024, 1026, 1031 & 3104",
+    "occupancies": "جميع الإشغالات (وتركيز خاص على المستشفيات I-2 والسجون I-3 والمولات والمباني المتصلة والسكني R)",
+    "whenToUse": "عند تمديد سلم الهروب أفقياً للخارج، أو تقسيم الطابق بمخرج أفقي لإنشاء منطقة لجوء، أو ربط مبنيين بكوبري/نفق مشاة، أو تصميم نوافذ الإنقاذ الطارئ في غرف النوم والأقبية السكنية.",
+    "files": [
+      {
+        "name": "Section 1024 Exit Passageways.pdf",
+        "sec": "SBC 1024",
+        "summary": "ممر الخروج المحمي (مقاومة >= 1 ساعة أو مقاومة السلم المتصل)، العرض >= 1100 مم، حظر الفتحات غير المأهولة والمصاعد والاختراقات، واستقلالية التهوية."
+      },
+      {
+        "name": "Section 1026 Horizontal Exits.pdf",
+        "sec": "SBC 1026",
+        "summary": "المخارج الأفقية: فاصل مقاوم 2 ساعة (وأبواب 1.5 ساعة)، حد أقصى 50% من المخارج (2/3 في I-2 و100% في I-3)، وحساب مساحة منطقة اللجوء Refuge Area (0.28 / 1.4 / 2.8 م²/شخص)."
+      },
+      {
+        "name": "Pedestrian Walkway and Tunnels.pdf",
+        "sec": "SBC 3104",
+        "summary": "كباري وأنفاق المشاة بين المباني: إنشاء غير قابل للاشتعال، 4 طرق لفصل الجدران الخارجية، عرض (0.9م إلى 9م)، مسافة انتقال (61م حتى 120م)، ونفق مقاوم 2 ساعة."
+      },
+      {
+        "name": "Section_1031_Emergency Escape and Rescue.pdf",
+        "sec": "SBC 1031",
+        "summary": "فتحات الإنقاذ والطوارئ (EERO) في غرف النوم والأقبية السكنية R-2/3/4: مساحة >= 0.53 م² (0.46م² أرضي)، عرض >= 500مم، ارتفاع >= 600مم، جلسة <= 1100مم، وحوض البئر Area Well."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T5-01",
+        "file": "Section 1024 Exit Passageways.pdf",
+        "sub": "ممرات الخروج المحمية (Exit Passageways)",
+        "occ": "جميع الإشغالات (خاصة المولات والأبراج لتوصيل السلالم للخارج)",
+        "trigger": "لتوصيل سلم خروج داخلي إلى الشارع أو ربط سلمين متباعدين أفقياً أو تقليص مسافة الانتقال",
+        "req": "مقاومة حريق لا تقل عن 1 ساعة ولا تقل عن مقاومة السلم المتصل به، عرض >= 1100 مم (900 مم لـ OL<50)، يُمنع فتح المخازن والحمامات والمصاعد عليه، وتُمنع الاختراقات إلا ما يخدم الممر نفسه، مع تهوية مستقلة تماماً.",
+        "eq": "Rating >= MAX(1 hr, Stair Rating) | Width >= 1100 mm | Travel Distance = Unlimited inside",
+        "exc": "لا يلزم باب فاصل بين السلم وممر الخروج إذا كان الممر خالياً تماماً من الفتحات أو كان السلم والممر محميين بنظام تضغيط هواء مشترك (909.20.5).",
+        "code": "SBC 201 & 801 Sec. 1024.1–1024.9"
+      },
+      {
+        "id": "T5-02",
+        "file": "Section 1026 Horizontal Exits.pdf",
+        "sub": "المخارج الأفقية وحساب مساحة منطقة اللجوء (Refuge Area)",
+        "occ": "جميع الإشغالات (تطبيق جوهري في المستشفيات I-2 والسجون I-3)",
+        "trigger": "عند تقسيم الدور بجدار حريق لتوفير إخلاء أفقي آمن داخل نفس الطابق",
+        "req": "فاصل مقاوم للحريق >= 2 ساعة ممتد من الواجهة للواجهة وأبواب مقاومة 1.5 ساعة تغلق ذاتياً أو بكاشف دخان. يمثل بحد أقصى 50% من المخارج المطلوبة. تُحسب مساحة منطقة اللجوء للموجودين فيها + القادمين من القطاع المجاور (الأقل من سعة الباب أو إشغال القطاع).",
+        "eq": "Refuge Area = (N_existing + MIN(N_door, N_adj)) × Factor\n(0.28 م² عادي | 2.8 م² مرضى أسرة I-2 | 1.4 م² رعاية I-1 | 0.60 م² I-3 | 0.56 م² قادرين)",
+        "exc": "1) في المستشفيات I-2 يُسمح أن تمثل المخارج الأفقية حتى 2/3 المخارج. 2) في السجون I-3 يُسمح بنسبة 100% بتوفير 0.60 م² لكل شخص على الجانبين. 3) يعفى الاتصال بكوبري مشاة مفتوح > 6م من مقاومة الفاصل.",
+        "code": "SBC 201 & 801 Sec. 1026.1–1026.5"
+      },
+      {
+        "id": "T5-03",
+        "file": "Pedestrian Walkway and Tunnels.pdf",
+        "sub": "كباري وأنفاق المشاة الرابطة بين المباني",
+        "occ": "المباني المترابطة (مستشفيات، مولات، جامعات، أبراج)",
+        "trigger": "عند ربط مبنيين بممر علوي أو نفق مشاة",
+        "req": "تُعتبر المباني منفصلة، ويُبنى الكوبري من مواد غير قابلة للاشتعال بعرض بين 0.9م و9م، وارتفاع خلوص >= 4.5م فوق الطريق العام. يُفصل عن المباني بجدار 2 ساعة وفتحات 3/4 ساعة (تمتد 3م حوله)، والنفق يُفصل بجدار 2 ساعة وفتحات 1.5 ساعة.",
+        "eq": "Width: 0.9 m – 9.0 m | Travel Distance: 61 m (75m مرشوش / 90m مفتوح 50% / 120m كلاهما)",
+        "exc": "1) اعتبار المباني كمبنى واحد بتطبيق الاشتراط الأشد على الكل (503.1.2). 2) الاستغناء عن مقاومة الجدار في الكوبري المفتوح 50% من الجانبين أو المزود بزجاج محمي برشاشات (3104.5.2–3).",
+        "code": "SBC 201 Sec. 3104.1–3104.10 & 3202.3.4"
+      },
+      {
+        "id": "T5-04",
+        "file": "Section_1031_Emergency Escape and Rescue.pdf",
+        "sub": "فتحات الهروب والإنقاذ الطارئ (EERO) في السكني والأقبية",
+        "occ": "السكني (R-2 بمخرج واحد، وجميع R-3 و R-4) + الأقبية وغرف النوم دون الدور الرابع",
+        "trigger": "في كل غرفة نوم وقبو دون الدور الرابع في الإشغالات السكنية المشمولة",
+        "req": "مساحة فتحة صافية >= 0.53 م² (عرض >= 500 مم، ارتفاع >= 600 مم)، ارتفاع الجلسة <= 1100 مم من الأرضية، تُفتح من الداخل بلا مفتاح أو أداة. وإذا كانت تحت منسوب الأرض يلزم حوض نافذة Area Well >= 0.84 م² (900×900 مم) وسلم ثابت إذا زاد العمق عن 1100 مم.",
+        "eq": "Net Area >= 0.53 m² (0.46 m² Ground) | W >= 500 mm | H >= 600 mm | Sill <= 1100 mm",
+        "exc": "1) قبو بارتفاع < 2000 مم أو بدون غرف سكنية وبمساحة <= 18 م². 2) غرفة/قبو له باب مباشر للشارع أو فناء. 3) ملاجئ العواصف ICC 500. 4) شقق R-2/R-3 المرشوشة بالكامل إذا توفر بالقبو مخرجان أو مخرج + فتحة طوارئ واحدة.",
+        "code": "SBC 201 & 801 Sec. 1031.1–1031.6"
+      }
+    ]
+  },
+  {
+    "num": "06",
+    "title": "إضاءة وسائل الخروج ولوحات الخروج والعلامات المضيئة وعنونة المباني",
+    "shortTitle": "06 • الإضاءة ولوحات الخروج والعنونة",
+    "sections": "SBC 201 & 801 Sec. 1008, 1013, 1025 & 502/505",
+    "occupancies": "جميع فئات الإشغالات (وإلزام العلامات المضيئة 1025 في المباني العالية >23م لفئات A, B, E, I-1, M, R-1)",
+    "whenToUse": "عند تصميم إضاءة مسارات الهروب العادية والطارئة، توزيع ومواصفات لوحات EXIT، تحديد مسارات الهروب الفسفورية في المباني العالية، ولوحات ترقيم وعنونة المباني للدفاع المدني.",
+    "files": [
+      {
+        "name": "MEANS OF EGRESS ILLUMINATION.pdf",
+        "sec": "SBC 1008",
+        "summary": "شدة الإضاءة العادية (11 لكس للمسارات و110 لكس للسلالم)، إضاءة الطوارئ لمدة 90 دقيقة (متوسط 11 لكس بداية و6 لكس نهاية)، وإضاءة الغرف الفنية الحرجة."
+      },
+      {
+        "name": "Section 1013 Exit Signs.pdf",
+        "sec": "SBC 1013",
+        "summary": "توزيع لوحات EXIT (أقصى مسافة رؤية 30م)، أبعاد الحروف (ارتفاع >=150مم)، الإضاءة الخارجية (54 لكس) والداخلية لمدة 90 دقيقة، اللوحات المنخفضة في الفنادق R-1، وبرايل."
+      },
+      {
+        "name": "LUMINOUS EGRESS PATH MARKINGS.pdf",
+        "sec": "SBC 1025",
+        "summary": "شرائط تحديد مسار الهروب المضيئة (UL 1994 / ASTM E2072) في المباني العالية (>23م) لفئات A,B,E,I-1,M,R-1 على الدرجات والدرابزين والمحيط والعوائق والأبواب."
+      },
+      {
+        "name": "Address Identification.pdf",
+        "sec": "SBC 201 502.1 / SBC 801 505",
+        "summary": "ترقيم وعنونة المباني بأرقام عربية أو حروف بارتفاع >= 100 مم وسمك خط >= 12 مم مرئية من الشارع العام لتسهيل وصول فرق الإطفاء."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T6-01",
+        "file": "MEANS OF EGRESS ILLUMINATION.pdf",
+        "sub": "إضاءة وسائل الخروج العادية وإضاءة الطوارئ (90 دقيقة)",
+        "occ": "جميع الإشغالات (واستثناءات R-1/2/3، U، ومسارح العرض)",
+        "trigger": "في جميع مسارات الهروب، والسلالم، والغرف الفنية، والمباني ذات المخرجين فأكثر",
+        "req": "الإضاءة العادية: >= 11 لكس على الأرضية، و>= 110 لكس على السلالم والبسطات. إضاءة الطوارئ (عند انقطاع الكهرباء ولمدة >= 90 دقيقة): متوسط >= 11 لكس (وأدنى نقطة >= 1 لكس) تنخفض بنهاية الـ 90 دقيقة لمتوسط >= 6 لكس (وأدنى نقطة >= 0.6 لكس)، وتشمل غرف الكهرباء والمضخات والمولدات ومركز القيادة والحمامات العامة > 28 م².",
+        "eq": "Normal: 11 lux (110 lux Stairs) | Emergency (90 min): 11 lux avg -> 6 lux avg (Ratio <= 40:1)",
+        "exc": "1) خفض الإضاءة في المسارح ودور السينما أثناء العرض إلى 2.2 لكس بشرط عودتها تلقائياً مع الإنذار. 2) في المستشفيات I-2 تعطل لمبة واحدة لا يقلل الإضاءة عن 11 لكس بالبسطة الخارجية و2.2 لكس بالمسار.",
+        "code": "SBC 201 & 801 Sec. 1008.1–1008.3.5"
+      },
+      {
+        "id": "T6-02",
+        "file": "Section 1013 Exit Signs.pdf",
+        "sub": "لوحات مخارج الطوارئ (EXIT Signs) واللوحات المنخفضة وبرايل",
+        "occ": "جميع الإشغالات (لوحات منخفضة إلزامية للفنادق R-1)",
+        "trigger": "فوق أبواب المخارج وعلى مسارات الهروب حيث لا يظهر المخرج مباشرة",
+        "req": "لا تزيد المسافة من أي نقطة في الممر إلى أقرب لوحة EXIT ظاهرة عن 30 م (أو مسافة الرؤية المعتمدة أيهما أقل). ارتفاع حروف EXIT >= 150 مم وسمكها >= 20 مم، وإضاءة مستمرة 90 دقيقة (54 لكس للمضاءة خارجياً). في الفنادق R-1 تُركب لوحات منخفضة على ارتفاع 250–450 مم.",
+        "eq": "Max Distance <= 30 m | Letter Height >= 150 mm | External Lux >= 54 lux | R-1 Low Sign: 250–450 mm",
+        "exc": "1) الغرف ذات المخرج الواحد. 2) الأبواب الخارجية الرئيسية الواضحة بذاتها بموافقة الدفاع المدني. 3) داخل الشقق وغرف الفنادق وGroup U و I-3. 4) لوحات برايل اللمسية (1013.4) لا تحتاج إضاءة.",
+        "code": "SBC 201 & 801 Sec. 1013.1–1013.6.3"
+      },
+      {
+        "id": "T6-03",
+        "file": "LUMINOUS EGRESS PATH MARKINGS.pdf",
+        "sub": "تحديد مسار الهروب بملصقات ودهانات مضيئة في المباني العالية",
+        "occ": "المباني العالية (> 23 م) لفئات A, B, E, I-1, M, R-1 فقط",
+        "trigger": "داخل سلالم ومنحدرات الخروج الداخلية وممرات الخروج في المباني العالية المشمولة",
+        "req": "شرائط مضيئة ذاتياً أو فوتولومينسنت (UL 1994 أو ASTM E2072 مشحونة بـ 11 لكس لـ 60 دقيقة) بعرض 25–50 مم على حواف الدرجات والبسطات (ضمن 12.5 مم)، وعلى الدرابزين (>=25مم)، ومحيط الأرضية/الحائط (ضمن 100مم)، وتخطيط العوائق البارزة >100مم، وإطار ومقبض باب الخروج ورمز الهروب المنخفض (<=450مم).",
+        "eq": "Building Height > 23 m (Groups A,B,E,I-1,M,R-1) | Stripe Width: 25–50 mm",
+        "exc": "يُستثنى بهو الدور الأرضي المستخدم للتفريغ وفق استثناء 1028.2.",
+        "code": "SBC 201 & 801 Sec. 1025.1–1025.5"
+      },
+      {
+        "id": "T6-04",
+        "file": "Address Identification.pdf",
+        "sub": "ترقيم وعنونة المباني لفرق الدفاع المدني",
+        "occ": "جميع المباني الجديدة والقائمة",
+        "trigger": "على واجهة كل مبنى مطل على شارع عام أو عند مدخل الطريق الخاص",
+        "req": "تثبيت أرقام وعنوان المبنى بشكل واضح ومتباين مع الخلفية بأرقام عربية أو حروف (يُمنع كتابتها كلمات) بارتفاع لا يقل عن 100 مم وسمك خط لا يقل عن 12 مم، ووضع نصب تعريفي على الشارع العام إذا كان المبنى على طريق خاص.",
+        "eq": "Character Height >= 100 mm | Stroke Width >= 12 mm",
+        "exc": "تُضاف علامات تعريفية إضافية حسب طلب مسؤول الدفاع المدني في المجمعات الكبيرة.",
+        "code": "SBC 201 Sec. 502.1 & SBC 801 Sec. 505.1"
+      }
+    ]
+  },
+  {
+    "num": "07",
+    "title": "إتاحة ذوي الإعاقة والميزانين والأسطح الخارجية المأهولة",
+    "shortTitle": "07 • ذوي الإعاقة والميزانين والأسطح",
+    "sections": "SBC 201 & 801 Sec. 1009, 505 & 503.1.4",
+    "occupancies": "جميع المباني المتاحة لذوي الإعاقة، والمباني المحتوية على ميزانين أو سطح مشغول",
+    "whenToUse": "عند تصميم وسائل الهروب لذوي الإعاقة ومناطق اللجوء والاتصال ثنائي الاتجاه، أو التحقق من نسبة مساحة وانفتاح الميزانين، أو استغلال سطح المبنى كمساحة مأهولة (مطعم/تراس).",
+    "files": [
+      {
+        "name": "Accessible Means of Egress.pdf",
+        "sec": "SBC 1009",
+        "summary": "وسائل الخروج الميسرة (1 أو 2 حسب المخارج)، إلزام المصعد عند >= 4 أدوار فوق/تحت الخروج، عرض السلم 1200مم، مناطق اللجوء (750×1200مم لكل 200 شخص)، والاتصال ثنائي الاتجاه."
+      },
+      {
+        "name": "MEZZANINE.pdf",
+        "sec": "SBC 505",
+        "summary": "شروط اعتبار الميزانين جزءاً من الدور وليس طابقاً مستقلاً: المساحة <= 1/3 الدور (أو 1/2 أو 2/3 بشروط)، الارتفاع الصافي >= 2م فوق وتحت، وشروط الانفتاح."
+      },
+      {
+        "name": "Occupied External Roofs.pdf",
+        "sec": "SBC 503.1.4 & 1511",
+        "summary": "استخدام السطح كسطح مشغول دون احتسابه في المساحة أو الأدوار بشرط تطابق إشغاله مع الدور تحته، وارتفاع الحواجز/المظلات <= 1.2م."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T7-01",
+        "file": "Accessible Means of Egress.pdf",
+        "sub": "وسائل الخروج لذوي الإعاقة ومناطق اللجوء والاتصال ثنائي الاتجاه",
+        "occ": "جميع المباني والفراغات المتاحة لذوي الإعاقة (Chapter 11)",
+        "trigger": "في كل فراغ مهيأ لذوي الإعاقة (وسيلة واحدة، أو وسيلتان إذا لزم مخرجان فأكثر)",
+        "req": "إذا كان الطابق المتاح أو السطح المأهول يرتفع أو ينخفض >= 4 أدوار عن منسوب الخروج يلزم مصعد إتاحة بطاقة احتياطية (1009.4). عرض سلم الإتاحة >= 1200 مم بين الدرابزين، وتوفير منطقة لجوء مفصولة بحاجز دخان 1 ساعة بمساحة 750×1200 مم لكل 200 شخص + نظام اتصال ثنائي الاتجاه عند المصاعد ومناطق اللجوء.",
+        "eq": "Accessible Floor >= 4 Stories -> Elevator Required | Stair >= 1200 mm | Refuge = CEILING(OL/200) × (750×1200 mm)",
+        "exc": "1) وجود نظام رش آلي شامل يلغي شرط الـ 1200مم للسلم، ويلغي شرط منطقة اللجوء عند السلالم والمصاعد، ويلغي شرط المصعد إذا توفر منحدر (1012) أو مخرج أفقي (1026). 2) إعفاء R-2 والمواقف المفتوحة من مناطق اللجوء.",
+        "code": "SBC 201 & 801 Sec. 1009.1–1009.11"
+      },
+      {
+        "id": "T7-02",
+        "file": "MEZZANINE.pdf",
+        "sub": "نسبة مساحة الميزانين وشروط انفتاحه وارتفاعه",
+        "occ": "جميع الإشغالات (استثناءات خاصة للصناعي Type I/II والمباني المرشوشة)",
+        "trigger": "عند تصميم دور نصفي (Mezzanine) داخل طابق حتى لا يُحتسب دوراً إضافياً",
+        "req": "المساحة الإجمالية للميزانين <= 1/3 المساحة المفتوحة للغرفة/الدور الموجود بها، ويُحسب ضمن مساحة الحريق وحمل إشغال الدور. الارتفاع الصافي فوق وتحت الميزانين >= 2.0 م، ويجب أن يكون مفتوحاً على الغرفة (حاجز <= 1.0 م).",
+        "eq": "Area_mezz <= 1/3 Area_open_room (أو 1/2 مع Type I/II + رش + إنذار صوتي | أو 2/3 صناعي خاص)",
+        "exc": "يُسمح بإغلاق الميزانين في 5 حالات: 1) إشغال الجزء المغلق <= 10 أشخاص. 2) وجود مخرجين فأكثر للميزانين. 3) الجزء المغلق <= 10% من مساحة الميزانين. 4) غرف التحكم الصناعية المزججة. 5) مبنى مرشوش <= دورين (عدا H و I) بمخرجين.",
+        "code": "SBC 201 Sec. 505.1–505.3"
+      },
+      {
+        "id": "T7-03",
+        "file": "Occupied External Roofs.pdf",
+        "sub": "شروط السطح الخارجي المأهول (Occupied Roof)",
+        "occ": "جميع الإشغالات (بشرط مطابقة إشغال الدور أسفل السطح)",
+        "trigger": "عند استغلال سطح المبنى كجلسات أو مطعم أو نشاط مأهول",
+        "req": "لا يُحتسب ضمن مساحة المبنى أو عدد الأدوار بشرط أن يكون نوع إشغاله مسموحاً به في الطابق الواقع تحته مباشرة (Table 504.4)، وألا ترتفع الحواجز أو العناصر المحيطة به عن 1200 مم (يُمنع تسقيفه وإلا عُدّ طابقاً إضافياً).",
+        "eq": "Perimeter Enclosure Height <= 1200 mm | Occupancy = Story Below",
+        "exc": "1) يُسمح بتغيير إشغال السطح عن الدور تحته (مثل تجمعي A) إذا كان المبنى مرشوشاً بالكامل مع توفير تنبيه وإنذار صوتي على السطح. 2) يُسمح بإشغال تجمعي فوق مواقف السيارات المفتوحة Type I/II (903.2.1.6).",
+        "code": "SBC 201 Sec. 503.1.4 & 1511"
+      }
+    ]
+  },
+  {
+    "num": "08",
+    "title": "المصاعد، ردهاتها (Lobbies)، مصاعد الإطفاء والإخلاء، والسلالم المتحركة",
+    "shortTitle": "08 • المصاعد والسلالم المتحركة",
+    "sections": "SBC 201 Ch. 30 (Sec. 3001–3008) & Sec. 712",
+    "occupancies": "المباني متعددة الأدوار (>3 أدوار)، المستشفيات (I)، السكني (R)، والمباني العالية (>23م / >36م / >128م)",
+    "whenToUse": "عند تحديد أنواع المصاعد المطلوبة بالمبنى، أبعاد نقالة الإسعاف، متى يلزم عمل ردهة مصعد معزولة (Lobby)، اشتراطات مصعد الدفاع المدني (FSAE) ومصعد إخلاء الشاغلين (OEE)، وحماية فتحات السلالم المتحركة.",
+    "files": [
+      {
+        "name": "Elevators General Requirements.pdf",
+        "sec": "SBC 3001–3003 & SBC 801 604.6",
+        "summary": "عزل البئر (713)، حد أقصى 4 مصاعد بالبئر الواحد، لوحات التحذير، باب الطوارئ في البئر الأعمى، منع تمديدات السباكة، الطاقة الاحتياطية (60 ثانية)، والمفتاح الموحد للإطفاء."
+      },
+      {
+        "name": "Elevator Types Required.pdf",
+        "sec": "SBC 1009 / 3002.4 / 3007 / 3008",
+        "summary": "دليل سريع لـ 4 أنواع: مصعد الإتاحة (>=4 أدوار)، مصعد الطوارئ بنقالة 600×2100مم (>=4 أدوار)، مصعد الدفاع المدني (>36م)، ومصعد إخلاء الشاغلين (بديل سلم >128م)."
+      },
+      {
+        "name": "ELEVATOR LOBBIES AND HOISTWAY OPENING PROTECTION.pdf",
+        "sec": "SBC 3006",
+        "summary": "الحالات الخمس التي تفرض حماية فتحات المصعد أو عمل Lobby معزول، والبدائل الأربعة (Fire Lobby / Smoke Lobby / أبواب إضافية UL 1784 / تضغيط البئر 909.21)."
+      },
+      {
+        "name": "Fire Service Access Elevator Requirements.pdf",
+        "sec": "SBC 3007 & 403.6.1",
+        "summary": "اشتراطات مصاعد الدفاع المدني (>36م): مصعدان بسعة >=1600كجم، لوبي 1 ساعة بمساحة >=14م² وبُعد >=2.4م، اتصال مباشر بالسلم، منع الرش بغرفة الماكينات ومنع Shunt Trip، وكابلات 2 ساعة."
+      },
+      {
+        "name": "Occupant Evacuation Elevator.pdf",
+        "sec": "SBC 3008 & 403.5.2",
+        "summary": "مصاعد إخلاء الشاغلين الذاتي: معادلات زمن الإخلاء (60 دقيقة للمبنى / 15 دقيقة لأعلى 5 أدوار)، مساحة اللوبي (0.27 م²/شخص لـ 25% + 0.9م² لكل 50 شخص)، وزجاج الرؤية بالأبواب."
+      },
+      {
+        "name": "Escalator and Moving Walks Shaft Enclosure Req..pdf",
+        "sec": "SBC 3004.2 & 712.1.3",
+        "summary": "حماية فتحات السلالم المتحركة والمشايات في المباني المرشوشة: إما ستائر دخان 450مم + رشاشات متقاربة 1.8م (فتحة <= ضعف السلم)، أو غالق حريق أوتوماتيكي 1.5 ساعة."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T8-01",
+        "file": "Elevator Types Required.pdf",
+        "sub": "أنواع المصاعد الأربعة المطلوبة حسب ارتفاع وعدد أدوار المبنى",
+        "occ": "جميع المباني المزودة بمصاعد (حسب عدد الأدوار والارتفاع)",
+        "trigger": "لتحديد أي نوع من مصاعد السلامة والإتاحة يلزم في المشروع",
+        "req": "1) مصعد إتاحة (1009.2.1): طابق متاح >= 4 أدوار فوق/تحت الخروج. 2) مصعد طوارئ/نقالة (3002.4): مبنى >= 4 أدوار فوق/تحت الأرض (يتسع لنقالة 600×2100 مم بنصف قطر 125 مم + رمز نجمة الحياة 75 مم). 3) مصعد دفاع مدني (403.6.1): طابق مشغول > 36 م (مصعدان >= 1600 كجم). 4) مصعد إخلاء شاغلين (3008): اختياري أو بديل للسلم الإضافي فوق 128 م.",
+        "eq": ">= 4 Stories -> Accessible + Stretcher (600×2100 mm) | > 36 m -> 2 FSAE (>=1600 kg) | > 128 m -> OEE",
+        "exc": "1) وجود رش شامل يلغي مصعد الإتاحة عند توفر منحدر 1012 أو مخرج أفقي 1026. 2) لا يلزم مصعد الدفاع المدني للمصاعد التي تخدم المواقف واللوبي فقط أو دور الخدمات العلوي غير المأهول.",
+        "code": "SBC 201 Sec. 403.5.2, 403.6.1, 1009.2.1, 3002.4, 3007, 3008"
+      },
+      {
+        "id": "T8-02",
+        "file": "ELEVATOR LOBBIES AND HOISTWAY OPENING PROTECTION.pdf",
+        "sub": "متى يلزم عمل ردهة مصعد مغلقة (Elevator Lobby) وطرق الحماية",
+        "occ": "المباني > 3 أدوار (غير مرشوشة / I-1 C2 / I-2 / I-3 / عالي >23م / تحت الأرض >9م)",
+        "trigger": "عندما يربط بئر المصعد أكثر من 3 طوابق أو يفتح على ممر مقاوم للحريق (1020.2.1)",
+        "req": "تُلزم حماية فتحات البئر في 5 حالات: مبنى غير مرشوش بالكامل، وجود I-1(C2) أو I-2 أو I-3، أو مبنى عالٍ بئر مصعده > 23 م. وتُحقق الحماية بأحد 4 حلول: (1) لوبي بجدران حريق (708)، (2) لوبي بحواجز دخان (710) إذا كان مرشوشاً، (3) أبواب إضافية مانعة للدخان UL 1784، أو (4) تضغيط بئر المصعد (25–67 باسكال — 909.21).",
+        "eq": "Hoistway > 3 Stories & (Unsprinklered OR I-1/2/3 OR High-Rise > 23m) -> 4 Protection Options",
+        "exc": "1) مواقف السيارات المفتوحة (406.5). 2) منسوب الخروج النهائي إذا كان مرشوشاً بالكامل. 3) المصاعد التي تفتح مباشرة للخارج أو تقع بالكامل داخل أتريوم مطابق لـ 712.1.7.",
+        "code": "SBC 201 Sec. 3006.1–3006.3 & 1020.2.1"
+      },
+      {
+        "id": "T8-03",
+        "file": "Fire Service Access Elevator Requirements.pdf",
+        "sub": "اشتراطات مصاعد خدمة الدفاع المدني (FSAE)",
+        "occ": "المباني التي يرتفع أعلى دور مشغول فيها > 36 م فوق وصول الإطفاء",
+        "trigger": "عند تصميم مصاعد الدفاع المدني المطلوبة بموجب 403.6.1",
+        "req": "تغطية المبنى بالكامل برش آلي مع حظر الرشاشات داخل البئر وغرفة الماكينات، ومنع Shunt Trip. لوبي مغلق بحاجز دخان 1 ساعة وأبواب 3/4 ساعة بمساحة >= 14 م² وأقل بُعد 2.4 م مع وصول مباشر لسلم خروج مزود بمحبس إطفاء Class I (داخل السلم وليس اللوبي)، إضاءة بئر >= 11 لكس، وتغذية طوارئ وكابلات مقاومة 2 ساعة.",
+        "eq": "FSAE Lobby >= 14 m² (Min Dim >= 2.4 m) | Symbol >= 75 mm at 1.9–2.0 m | Cables = 2-hr UL 2196",
+        "exc": "لا يلزم لوبي مغلق عند منسوب الخروج النهائي؛ وإذا كان للمصعد بابان بالدور يُحمى الثاني وفق 3006.3.",
+        "code": "SBC 201 Sec. 3007.1–3007.9.1"
+      },
+      {
+        "id": "T8-04",
+        "file": "Occupant Evacuation Elevator.pdf",
+        "sub": "مصاعد إخلاء الشاغلين الذاتي (OEE) ومعادلات التحليل",
+        "occ": "المباني العالية (أو بديل السلم الإضافي فوق 128م — يُحظر وجود Group H)",
+        "trigger": "عند استخدام المصاعد للإخلاء الذاتي للشاغلين أو الاستغناء عن السلم الإضافي فوق 128م",
+        "req": "تحديد العدد بالتحليل الهندسي لإخلاء المبنى في <= 60 دقيقة أو أعلى 5 أدوار في <= 15 دقيقة (بحد أدنى مصعدين باللوبي). مساحة اللوبي تستوعب 25% من إشغال الدور (0.27 م²/شخص) + مكان كرسي متحرك (0.9 م²) لكل 50 شخصاً. أبواب اللوبي 3/4 ساعة مزودة بلوحة رؤية زجاجية Vision Panel واتصال ثنائي الاتجاه.",
+        "eq": "N1 >= (P_total × t_cycle)/(60 × C) | N2 >= (P_5fl × t_cycle)/(15 × C)\nA_lobby = (0.25 × OL × 0.27) + (OL/50 × 0.9)",
+        "exc": "لا يلزم لوبي مغلق بمنسوب الخروج النهائي؛ ولا يلزم اتصال مباشر بالسلم للمصاعد التي تخدم مواقف مفتوحة واللوبي فقط.",
+        "code": "SBC 201 Sec. 3008.1–3008.10 & 403.5.2"
+      },
+      {
+        "id": "T8-05",
+        "file": "Elevators General Requirements.pdf",
+        "sub": "الاشتراطات العامة للمصاعد وتوحيد مفاتيح الإطفاء",
+        "occ": "جميع المباني المزودة بمصاعد",
+        "trigger": "في كافة مشاريع المصاعد",
+        "req": "بئر مقاوم للحريق (2 ساعة لـ >=4 أدوار و1 ساعة لـ <4 أدوار)، حد أقصى 4 مصاعد في البئر الواحد (و>= بئرين عند 4 مصاعد فأكثر)، منع مشاركة البئر مع السلم (إلا المواقف المفتوحة)، منع تمديدات السباكة والميكانيكا، تفعيل Phase I و Phase II، وتوحيد مفتاح الإطفاء أو حفظ المفاتيح في Key Box على ارتفاع 1700 مم.",
+        "eq": "Max Cars/Shaft <= 4 | Standby Transfer <= 60 sec | Key Box Height = 1700 mm",
+        "exc": "استثناء لوحة التحذير عند مصاعد الإتاحة (1009.4) ومصاعد الإخلاء (3008)؛ واستثناء صرف قاع البئر غير المباشر.",
+        "code": "SBC 201 Sec. 3001–3003 & SBC 801 Sec. 506.1.2, 604.6"
+      },
+      {
+        "id": "T8-06",
+        "file": "Escalator and Moving Walks Shaft Enclosure Req..pdf",
+        "sub": "حماية فتحات السلالم المتحركة والمشايات",
+        "occ": "المولات والمطارات والمباني الإدارية والتجارية (B, M) وباقي الإشغالات",
+        "trigger": "عند وجود سلم متحرك أو مشاية تربط بين الأدوار بدون بئر مغلق",
+        "req": "يُشترط أن يكون المبنى مرشوشاً بالكامل لتطبيق أحد البديلين: (1) ستارة دخان عمق >= 450 مم + رشاشات متقاربة (<= 1.8 م) على بعد 150–300 مم من الستارة، وألا تزيد مساحة الفتحة عن ضعف مساحة السلم (مفتوح الأدوار في B و M، وحتى 4 أدوار لغيرهما). (2) غالق حريق أوتوماتيكي (Automatic Shutter) مقاوم 1.5 ساعة يغلق بسرعة <= 150 مم/ث مع إيقاف السلم.",
+        "eq": "Opening Area (Lo × Wo) <= 2 × Escalator Area | Draft Curtain >= 450 mm | Sprinkler Spacing <= 1.8 m",
+        "exc": "في المواقف ومناطق النقل تحت الأرض لا يقل عرض السلم المتحرك عن 0.8 م لنقل الكراسي المتحركة (3004.2.2).",
+        "code": "SBC 201 Sec. 3004.2 & 712.1.3.1–712.1.3.2"
+      }
+    ]
+  },
+  {
+    "num": "09",
+    "title": "الارتفاعات وعدد الأدوار والمساحات المسموحة للمباني والمباني العالية",
+    "shortTitle": "09 • الارتفاع والمساحة والمباني العالية",
+    "sections": "SBC 201 Ch. 2, 4 & 5 (Sec. 403, 504, 506)",
+    "occupancies": "جميع فئات الإشغالات (A–U) وأنواع الإنشاء الخمسة (Type I, II, III, IV, V)",
+    "whenToUse": "في مرحلة التخطيط المعماري لتحديد أقصى ارتفاع مسموح بالمتر، أقصى عدد أدوار فوق منسوب الأرض، أقصى مساحة مسموحة للمبنى بمعامل الواجهات والرش، ومتى يُصنف المبنى كمبنى عالٍ (High-Rise).",
+    "files": [
+      {
+        "name": "Allowable BuildingHeight.pdf",
+        "sec": "SBC 504.3 & Table 504.3",
+        "summary": "الارتفاع الأقصى للمبنى بالمتر حسب الإشغال ونوع الإنشاء (زيادة +6م عند الرش الآلي عدا H-1,2,3 و I-2، وحد 18م لنظام NFPA 13R)."
+      },
+      {
+        "name": "Allowable Number of Stories Above Grade Plane.pdf",
+        "sec": "SBC 504.4 & Table 504.4",
+        "summary": "تعريف الدور فوق منسوب الأرض (Story Above Grade Plane) وحدود عدد الطوابق المسموحة حسب الإشغال ونوع الإنشاء والرش الآلي."
+      },
+      {
+        "name": "Allowable Building Area.pdf",
+        "sec": "SBC 506 & Tables 506.2, 506.3.3",
+        "summary": "معادلات حساب المساحة المسموحة للمبنى الواحد والمختلط (مفصول/غير مفصول)، معامل الواجهات If، شروط وصول آليات الإطفاء (45م)، وحساب الأقبية."
+      },
+      {
+        "name": "High Rise and Building Heights.pdf",
+        "sec": "SBC 202 & Sec. 403",
+        "summary": "تعريف المبنى العالي (أعلى دور مشغول > 23 م فوق أدنى منسوب وصول لسيارات الدفاع المدني) وطريقة قياس ارتفاع المبنى."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T9-01",
+        "file": "Allowable Building Height.pdf",
+        "sub": "أقصى ارتفاع مسموح للمبنى بالمتر (Table 504.3)",
+        "occ": "جميع الإشغالات وأنواع الإنشاء (Type I–V)",
+        "trigger": "للتحقق من مطابقة ارتفاع المبنى بالمتر مع نوع الإنشاء ونظام الرش",
+        "req": "يُقاس الارتفاع من متوسط منسوب الأرض (Grade Plane) إلى متوسط سطح أعلى سقف (لا تدخل الدراوي Parapets). يضيف نظام الرش الشامل (903.3.1.1) زيادة 6 أمتار للارتفاع المسموح، بينما المباني السكنية المحمية بـ NFPA 13R يُحدّ ارتفاعها بـ 18 م (60 م لـ Type IA).",
+        "eq": "Sprinklered Height = NS Height + 6.0 m (عدا H-1,2,3 و I-2) | NFPA 13R Max = 18 m",
+        "exc": "1) الأبراج والقباب والهياكل غير القابلة للاشتعال فوق السطح غير محدودة الارتفاع (والقابلة للاشتعال <= 6 م). 2) هناجر الطائرات من دور واحد غير محدودة الارتفاع مع الرش والمسافات الكافية.",
+        "code": "SBC 201 Sec. 504.3 & Table 504.3"
+      },
+      {
+        "id": "T9-02",
+        "file": "Allowable Number of Stories Above Grade Plane.pdf",
+        "sub": "أقصى عدد طوابق مسموح فوق منسوب الأرض (Table 504.4)",
+        "occ": "جميع الإشغالات وأنواع الإنشاء",
+        "trigger": "لتحديد عدد الأدوار المسموحة فوق الأرض ومتى يُحتسب القبو كدور",
+        "req": "يُحتسب القبو كدور فوق منسوب الأرض إذا ارتفعت أرضية الدور الذي فوقه بأكثر من 1.8 م عن متوسط Grade Plane أو بأكثر من 3.6 م عن منسوب الأرض عند أي نقطة. الميزانين المطابق لـ 505 لا يُحتسب دوراً. لا يُسمح بزيادة الأدوار بالرش في H-1..5 أو I-2 (في IIB, III, IV, V).",
+        "eq": "Basement = Story Above Grade if (Floor_above > 1.8 m Grade Plane OR > 3.6 m at any point)",
+        "exc": "استثناءات الزيادة والارتفاعات الخاصة في الفصلين 4 و 5 (مثل المواقف المفتوحة ومباني المساحة غير المحدودة 507).",
+        "code": "SBC 201 Sec. 202 & Sec. 504.4 & Table 504.4"
+      },
+      {
+        "id": "T9-03",
+        "file": "Allowable Building Area.pdf",
+        "sub": "حساب المساحة المسموحة للمبنى ومعامل الواجهات (Sec. 506)",
+        "occ": "جميع الإشغالات (مباني مفردة ومختلطة مفصولة وغير مفصولة)",
+        "trigger": "للتحقق من المساحة الإجمالية للدور والمبنى ومقارنتها بالحد المسموح",
+        "req": "تُستخرج المساحة الجدولية At و NS من Table 506.2، ويُحسب معامل الزيادة للواجهات If من Table 506.3.3 بشرط أن يطل >= 25% من محيط المبنى على طريق عام أو مساحة مفتوحة بعرض >= 6 م وتصلها آليات الإطفاء أو خراطيمها ضمن 45 م. تُعفى الأقبية إذا لم يتجاوز مجموع مساحتها مساحة الدور الواحد المسموحة.",
+        "eq": "1–3 أدوار: Aa = At + (NS × If)\n>= 4 أدوار: Aa = [At + (NS × If)] × Sa (حيث Sa = 3 أو 4 للسكني 13R)\nمختلط مفصول: Sum(Actual_i / Allowable_i) <= 1.0 لكل دور",
+        "exc": "المباني ذات المساحة غير المحدودة (Sec. 507) والأحكام الخاصة للمنصات (Sec. 510).",
+        "code": "SBC 201 Sec. 506.1–506.3.3 & Tables 506.2, 506.3.3"
+      },
+      {
+        "id": "T9-04",
+        "file": "High Rise and Building Heights.pdf",
+        "sub": "تعريف المبنى العالي (High-Rise Building) وتبعاته",
+        "occ": "جميع الإشغالات",
+        "trigger": "عند تجاوز ارتفاع أعلى دور مشغول 23 متراً",
+        "req": "يُصنف المبنى كمبنى عالٍ (High-Rise) إذا كان منسوب أرضية أعلى دور مشغول (شاملاً الميزانين) يرتفع بأكثر من 23 متراً فوق أدنى منسوب وصول لسيارات الدفاع المدني؛ ويترتب عليه إلزام الرش الآلي الشامل، الإنذار الصوتي، السلالم المحمية من الدخان، ومركز قيادة الحريق (Sec. 403).",
+        "eq": "Highest Occupied Floor - Lowest Fire Dept. Access > 23 m -> High-Rise Building",
+        "exc": "تُستثنى الأسطح الفنية غير المأهولة (Penthouses) من قياس الـ 23 م.",
+        "code": "SBC 201 Sec. 202 & Sec. 403"
+      }
+    ]
+  },
+  {
+    "num": "10",
+    "title": "أنظمة الأعمدة الصاعدة للإطفاء (Standpipe Systems Class I / II / III)",
+    "shortTitle": "10 • الأعمدة الصاعدة Standpipes",
+    "sections": "SBC 801 Sec. 905.3, 905.5, 905.10, 905.12 & Ch. 33",
+    "occupancies": "جميع الإشغالات (>9م ارتفاع/عمق)، التجمعي A (>1000 شخص)، المولات، المسارح (>100م²)، الأنفاق، ومهابط الطائرات",
+    "whenToUse": "لتحديد متى يُفرض نظام الأعمدة الصاعدة Class I أو Class II أو Class III في المباني الجديدة والقائمة وأثناء الإنشاء والهدم.",
+    "files": [
+      {
+        "name": "When Standpipe is required.pdf",
+        "sec": "SBC 801 Sec. 905",
+        "summary": "شروط إلزام Standpipe Class III (ارتفاع/عمق > 9م) واستبداله بـ Class I في المباني المرشوشة والمواقف المفتوحة، ومتطلبات Tجمعي A (>1000 شخص)، المولات (مسافة 60م)، المسارح (>100م²)، ومراحل الإنشاء (>12م) والهدم والمباني القائمة (>15م)."
+      }
+    ],
+    "rules": [
+      {
+        "id": "T10-01",
+        "file": "When Standpipe is required.pdf",
+        "sub": "متى يلزم نظام Class III ومتى يُستبدل بـ Class I",
+        "occ": "جميع الإشغالات (مباني > 9 م ارتفاعاً أو عمقاً)",
+        "trigger": "في أي مبنى يرتفع أعلى دور فيه > 9 م أو ينخفض أدنى دور فيه > 9 م عن وصول الإطفاء",
+        "req": "يُفرض نظام Class III في المباني > 9 م ارتفاعاً أو عمقاً (والحدائق على الأسطح)، ويُستبدل بـ Class I في 4 حالات: (1) المباني المزودة برش آلي شامل، (2) المواقف المفتوحة <= 45 م (يدوي رطب، أو جاف عند التجمد)، (3) الأقبية المرشوشة بالكامل.",
+        "eq": "Highest Story > 9 m OR Lowest Story < -9 m -> Class III (أو Class I مع الرش الشامل)",
+        "exc": "استثناء منحدرات التحميل الغائرة لـ <= 4 مركبات أو تعذر وصول الآليات طوبوغرافياً عند تحديد منسوب الوصول.",
+        "code": "SBC 801 Sec. 905.3.1 & 905.3.8"
+      },
+      {
+        "id": "T10-02",
+        "file": "When Standpipe is required.pdf",
+        "sub": "إلزام Class I & II في التجمعي والمولات والمسارح والأنفاق ومهابط الطائرات",
+        "occ": "Group A (>1000)، المولات، المسارح (>100م²)، المباني تحت الأرض، مهابط الهليكوبتر، المراسي",
+        "trigger": "في الإشغالات الخاصة بغض النظر عن ارتفاع الـ 9 أمتار",
+        "req": "1) التجمعي A غير المرشوش (>1000 شخص): Class I رطب تلقائي (وClass II بخرطوم 40مم على جانبي المسرح والقاعة في A-1/A-2 >1000). 2) المولات المغطاة والمفتوحة: Class I بمسافة تغطية <= 60 م. 3) المسارح > 100 م²: Class III بفتحات 40 و65 مم. 4) المباني تحت الأرض ومهابط الهليكوبتر: Class I/III.",
+        "eq": "Mall Hose Coverage <= 60 m | Stage > 100 m² -> Class III | Group A > 1000 -> Class I/II",
+        "exc": "مدرجات الجلوس المفتوحة للهواء بدون فراغات مغلقة تعفى من 905.3.2؛ وتلزم موافقة الدفاع المدني على اشتراطات Class II الإضافية.",
+        "code": "SBC 801 Sec. 905.3.2–905.3.7 & 905.5"
+      },
+      {
+        "id": "T10-03",
+        "file": "When Standpipe is required.pdf",
+        "sub": "متطلبات Standpipe أثناء الإنشاء والهدم وفي المباني القائمة",
+        "occ": "المباني قيد الإنشاء (>12م)، الهدم، والمباني القائمة (>15م)",
+        "trigger": "أثناء مراحل التشييد والهدم أو تقييم المباني القائمة",
+        "req": "1) أثناء الإنشاء: تركيب عمود صاعد واحد على الأقل عند تجاوز ارتفاع البناء 12 م ويُمدد ليظل ضمن طابق واحد من أعلى بلاطة منفذة. 2) أثناء الهدم: الإبقاء على النظام القائم عاملاً وألا يُهدم بأكثر من طابق واحد أسفل طابق الهدم. 3) المباني القائمة: يُلزم عند وجود طابق مشغول > 15 م فوق أو تحت وصول الإطفاء (أو مهبط طائرات > 9 م).",
+        "eq": "Construction > 12 m (within 1 floor) | Demolition (within 1 floor) | Existing > 15 m",
+        "exc": "يُربط بمخارج السلالم المؤقتة أو الدائمة المطابقة لـ Sec. 3312.1.",
+        "code": "SBC 801 Sec. 905.10, 905.12 & 3314"
+      }
+    ]
+  }
+]
 };
